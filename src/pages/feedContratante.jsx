@@ -21,8 +21,8 @@ function feedContratante() {
         </div>
         <main className="conteudoC">
             <input type="search" placeholder="Pesquisar..." aria-label="Pesquisar"/>
-            <div className="filtro-box">
-              <span className="icone-filtro" aria-hidden="true"></span>
+            <div className="filtro-boxC">
+              <span className="icone-filtroC" aria-hidden="true"></span>
               <select defaultValue="">
                 <option value="" disabled>Filtro</option>
                 <option>1</option>

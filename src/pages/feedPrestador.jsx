@@ -20,8 +20,8 @@ function feedPrestador() {
         </div>
         <main className="conteudoP">
             <input type="search" placeholder="Pesquisar..." aria-label="Pesquisar"/>
-            <div className="filtro-box">
-              <span className="icone-filtro" aria-hidden="true"></span>
+            <div className="filtro-boxP">
+              <span className="icone-filtroP" aria-hidden="true"></span>
               <select defaultValue="">
                 <option value="" disabled>Filtro</option>
                 <option>1</option>

@@ -51,13 +51,13 @@
   cursor: pointer;
 }
 
-.filtro-box {
+.filtro-boxP {
   grid-column: span 1;          /* a coluna que o select ocupava */
   position: relative;
   height: 5.6vw;
 }
 
-.filtro-box img {
+.filtro-boxP img {
   position: absolute;
   left: 1.2vw;
   top: 50%;
@@ -66,7 +66,7 @@
   pointer-events: none;         /* o clique passa para o select */
 }
 
-.filtro-box select {
+.filtro-boxP select {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
@@ -81,7 +81,7 @@
   cursor: pointer;
 }
 
-.icone-filtro {
+.icone-filtroP {
   position: absolute;
   left: 1.2vw;
   top: 50%;
