@@ -1,0 +1,85 @@
+.conteudo {
+  margin-left: var(--largura-barra);
+  padding: 0;
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+}
+
+.foto-perfil img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;      /* foto redonda */
+  object-fit: cover;
+}
+
+.info h1 { margin: 0; font-size: 2.5rem; }
+.info p  { margin: 0; font-size: 1.5rem; }
+
+.menu {
+  margin-left: auto;                         /* mantém os pontinhos à direita */
+  width: 60px;
+  height: 60px;
+  background-color: #e1b61c;                 /* a cor que você quiser */
+  -webkit-mask: url("/src/assets/menuFoto.png") center / contain no-repeat;
+  mask: url("/src/assets/menuFoto.png") center / contain no-repeat;
+}
+
+.acoes {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 16px 16px;
+}
+
+.btn-chat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #6af6cf;
+  color: white;
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 8px 40px;
+  border-radius: 999px;    /* formato de pílula */
+}
+
+.btn-chat img { height: 40px; }
+.calendario   { height: 60px; }
+
+.linha {
+  height: 5px;
+  background-color: #e1b61c;   /* sem margens negativas: ocupa toda a largura do conteúdo */
+}
+
+.anexos {
+  padding: 16px;
+}
+
+.anexos label {
+  display: inline-flex;
+  align-items: center;   /* alinha ícone e texto no meio, na vertical */
+  gap: 8px;              /* espaço entre o ícone e a palavra */
+  cursor: pointer;
+}
+
+.anexos label img {
+  height: 40px;          /* ajuste ao tamanho que preferir */
+}
+
+.anexos label span {
+  font-size: 1.5rem;
+}
+
+.calendario {
+  width: 60px;
+  height: 60px;
+  background-color: #6af6cf;                 /* a cor que você quiser */
+  -webkit-mask: url("/src/assets/calendarioFoto.png") center / contain no-repeat;
+  mask: url("/src/assets/calendarioFoto.png") center / contain no-repeat;
+}

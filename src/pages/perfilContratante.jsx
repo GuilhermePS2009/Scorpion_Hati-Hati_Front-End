@@ -1,46 +1,67 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import './css/perfilContratante.css'
+import './css/botao.css'
 
-function perfilContratante() {
+function PerfilContratante() {
+  const [foto, setFoto] = useState("src/assets/Foto.webp");
+
+  function escolher(e) {
+    const arquivo = e.target.files[0];
+    if (arquivo) setFoto(URL.createObjectURL(arquivo));
+  }
 
   return (
     <>
-        {/*style={{backgroundColor: "#6af6cf"}}*/}
-        <div>
-            <Link to="/feedContratante">
-                <div><img src="src/assets/feedFoto.png" alt="Img da Feed"/><br/>Feed</div>
-            </Link>
+      <div className="botoes">
+        <Link to="/feedContratante">
+          <div className="botao"><img src="src/assets/feedFoto.png" alt="Feed" />Feed</div>
+        </Link>
 
-            <Link to="/perfilContratante">
-                <div><img src="src/assets/chatFoto.png" alt="Img do Chat"/><br/>Chat</div>
-            </Link>
-            
-            <Link to="/perfilContratante">
-                <div><img src="src/assets/perfilFoto.png" alt="Img do Chat"/><br/>Perfil</div>
-            </Link>
-        </div>
-            
-            <input type="file" accept="image/*" />
-            
-            {/*Mudar para se adaptar a cada usuario*/}
-            <p>Perfil Contratante</p>
-            <p>Id: 001</p>
+        <Link to="/perfilContratante">
+          <div className="botao"><img src="src/assets/chatFoto.png" alt="Chat" />Chat</div>
+        </Link>
 
-            <Link to="/perfilContratante">
-                <div><img src="src/assets/chatFoto.png" alt="Img do Chat"/>Chat</div>
-            </Link>
+        <Link to="/perfilContratante">
+          <div className="botao"><img src="src/assets/perfilFoto.png" alt="Perfil" />Perfil</div>
+        </Link>
+      </div>
 
-            <img src="src/assets/calendarioFoto.png"></img>
-
-            <img src="src/assets/menuFoto.png"></img>
-
-            <div></div>
-
-            <label>
-                <img src="src/assets/adicionarFoto.png" alt="Adicionar foto" />
-                <input type="file" multiple hidden />
+      <main className="conteudo">
+        <header className="cabecalho">
+            <label className="foto-perfil">
+            <img src={foto} alt="Foto de perfil" />
+            <input type="file" accept="image/*" hidden onChange={escolher} />
             </label>
+
+            <div className="info">
+            <h1>Usuário Contratante</h1>
+            <p>ID: 001</p>
+            </div>
+
+            <div className="menu" role="img" aria-label="Menu"></div>
+        </header>
+
+        <div className="acoes">
+            <Link to="/perfilContratante" className="btn-chat">
+            <img src="src/assets/chatFoto.png" alt="" />
+            Chat
+            </Link>
+            <div className="calendario" role="img" aria-label="Calendário"></div>
+        </div>
+
+        <div className="linha"></div>
+
+        <section className="anexos">
+            <label>
+            <img src="src/assets/criarVagaFoto.png" alt="Adicionar anexo" />
+            <input type="file" multiple hidden />
+            <span>Criar</span>
+            </label>
+        </section>
+      </main>
     </>
   )
 }
 
-export default perfilContratante
+export default PerfilContratante

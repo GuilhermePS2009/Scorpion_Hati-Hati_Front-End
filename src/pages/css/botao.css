@@ -1,0 +1,48 @@
+:root {
+  --largura-barra: clamp(130px, 7vw, 240px);
+}
+
+.botoes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--largura-barra);
+  height: 100vh;
+  background-color: #6af6cf;
+  display: flex;
+  flex-direction: column;
+}
+
+/* cada link ocupa 1/3 da altura */
+.botoes a {
+  flex: 1;
+  display: flex;
+  color: white;
+  text-decoration: none;
+}
+
+/* linha divisória só entre os botões */
+.botoes a:not(:last-child) {
+  border-bottom: 10px solid #4ab698;
+}
+
+.botao {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: clamp(1.4rem, 2.6vw, 3rem);   /* texto maior */
+}
+
+.botao img {
+  width: clamp(84px, 6vw, 156px);          /* ícones maiores */
+  height: clamp(84px, 6vw, 156px);
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.botao:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
