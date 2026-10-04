@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import './css/perfilContratante.css'
 import './css/botao.css'
+import api from "../services/api";
 
 const formVazio = {
   tipo: "",
@@ -20,15 +21,27 @@ function PerfilContratante() {
   const [aberto, setAberto] = useState(false);
   const [form, setForm] = useState(formVazio);
 
-  const [vagas, setVagas] = useState(() => {
+  const [vagas, setVagas] = useState([])
+    /*(() => {
     const salvo = localStorage.getItem("vagas");
     return salvo ? JSON.parse(salvo) : [];
-  });
+  });*/
+
+  /*useEffect(() => {
+    localStorage.setItem("vagas", JSON.stringify(vagas));
+  }, [vagas]); */
 
   useEffect(() => {
-    localStorage.setItem("vagas", JSON.stringify(vagas));
-  }, [vagas]);
-
+    api
+      .get("/vagas/GetAll")
+      .then((response) => {
+        console.log("Resposta:", response.data, response.data[0].idContratante);
+        setVagas(response.data)
+      })
+      .catch((err) => {
+        console.error("Ops! Ocorreu um erro: " + err)
+      })
+  }, [])
   function escolher(e) {
     const arquivo = e.target.files[0];
     if (arquivo) setFoto(URL.createObjectURL(arquivo));
@@ -95,21 +108,28 @@ function PerfilContratante() {
           <div className="lista-vagas">
             {vagas.map((v) => (
               <div className="vaga" key={v.id}>
-                <h3>{v.tipo}</h3>
-                {v.dataHora && (
-                  <span>{new Date(v.dataHora).toLocaleString("pt-BR")}</span>
+                {v.dataHoraVaga && (
+                  <span>Data e hora do serviço: {new Date(v.dataHoraVaga).toLocaleString("pt-BR")}</span>
                 )}
-                {v.duracao && <span>Duração: {v.duracao}</span>}
-                {v.valor && <span>R$ {v.valor}</span>}
-                {v.local && <span>Local: {v.local}</span>}
-                {v.contratante && <span>Contratante: {v.contratante}</span>}
-                {v.pessoa && (
+                {/*v.duracao && <span>Duração: {v.duracao}</span>*/}
+                {/*v.valor && <span>R$ {v.valor}</span>*/}
+                {/*v.local && <span>Local: {v.local}</span>*/}
+                {v.idContratante && <span>Contratante: 
+                  <br></br><span style={{paddingLeft: '10px', width: '170px', display: 'block'}}>
+                    Nome: {v.idContratante.nome}<br></br>
+                    Pontos de avaliações: {v.idContratante.avaliacoes}<br></br>
+                    Cidade: {v.idContratante.cidade}<br></br>
+                    Estado: {v.idContratante.estado}<br></br>
+                    CEP: {v.idContratante.cep}
+                    </span>
+                  </span>}
+                {/*v.pessoa && (
                   <span>
                     Pessoa cuidada: {v.pessoa}
                     {v.idade && `, ${v.idade} anos`}
                   </span>
-                )}
-                {v.observacao && <p>{v.observacao}</p>}
+                )*/}
+                {v.descricaoServicoVaga && <p>Descrição: {v.descricaoServicoVaga}</p>}
                 <button
                   type="button"
                   onClick={() => setVagas(vagas.filter((x) => x.id !== v.id))}
