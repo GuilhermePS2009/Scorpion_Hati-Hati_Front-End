@@ -1,18 +1,22 @@
 import { Link } from "react-router-dom";
+import './css/cadastro.css'
 
 function cadastro() {
 
   return (
     <>
-      <h1>Cadastro</h1>
+      <div className="cadastroFolha">
+        <p className="um">Cadastro</p>
+        <p className="dois">Entrar como:</p><br></br>
 
-      <Link to="/perfilContratante">
-        <button>Perfil Contratante</button>
-      </Link>
+        <Link to="/perfilContratante">
+          <button className="botaoCadastro">Perfil Contratante</button><br></br>
+        </Link>
 
-      <Link to="/perfilPrestador">
-        <button>Perfil Prestador</button>
-      </Link>
+        <Link to="/perfilPrestador">
+          <button className="botaoCadastro">Perfil Prestador</button>
+        </Link>
+      </div>
     </>
   )
 }
