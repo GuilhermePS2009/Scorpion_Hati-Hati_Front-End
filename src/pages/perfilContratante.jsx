@@ -5,16 +5,19 @@ import './css/botao.css'
 import api from "../services/api";
 
 const formVazio = {
-  tipo: "",
+  tipoServico: "",
   dataHora: "",
   duracao: "",
   valor: "",
-  local: "",
-  contratante: "",
-  pessoa: "",
-  idade: "",
+  localizacao: "",
+  nomeContratante: "",
+  pessoaCuidada: "",
+  idadePessoaCuidada: "",
   observacao: "",
 };
+
+// TODO: trocar pelo id do contratante logado
+const ID_CONTRATANTE = 1;
 
 function PerfilContratante() {
   const [foto, setFoto] = useState("src/assets/Foto.webp");
@@ -24,6 +27,7 @@ function PerfilContratante() {
   const [vagas, setVagas] = useState([])
     /*(() => {
     const salvo = localStorage.getItem("vagas");
+
     return salvo ? JSON.parse(salvo) : [];
   });*/
 
@@ -32,16 +36,9 @@ function PerfilContratante() {
   }, [vagas]); */
 
   useEffect(() => {
-    api
-      .get("/vagas/GetAll")
-      .then((response) => {
-        console.log("Resposta:", response.data, response.data[0].idContratante);
-        setVagas(response.data)
-      })
-      .catch((err) => {
-        console.error("Ops! Ocorreu um erro: " + err)
-      })
-  }, [])
+    carregarVagas();
+  }, []);
+
   function escolher(e) {
     const arquivo = e.target.files[0];
     if (arquivo) setFoto(URL.createObjectURL(arquivo));
@@ -51,11 +48,57 @@ function PerfilContratante() {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
-  function enviar(e) {
+  /*function enviar(e) {
     e.preventDefault();
     setVagas([...vagas, { id: Date.now(), ...form }]);
     setForm(formVazio);
     setAberto(false);
+  }*/
+
+  function carregarVagas() {
+    api
+      .get("/vagas/GetAll")
+      .then((response) => setVagas(response.data))
+      .catch((err) => console.error("Ops! Ocorreu um erro: " + err));
+  }
+
+  async function excluir(id) {
+    if (!window.confirm("Deseja realmente excluir esta vaga?")) return;
+
+    try {
+      await api.delete(`/vagas/deletar/${id}`);
+      setVagas(vagas.filter((x) => x.id !== id)); // tira da tela só depois de apagar no banco
+    } catch (err) {
+      console.error("Erro ao excluir vaga:", err.response?.status, err.response?.data || err.message);
+      alert("Não foi possível excluir a vaga.");
+    }
+  }
+
+  async function enviar(e) {
+    e.preventDefault();
+
+    const novaVaga = {
+      tipoServico: form.tipoServico,
+      dataHoraVaga: form.dataHora || null,
+      duracao: form.duracao,
+      valor: form.valor !== "" ? Number(form.valor) : null,
+      localizacao: form.localizacao,
+      pessoaCuidada: form.pessoaCuidada,
+      idadePessoaCuidada: form.idadePessoaCuidada !== "" ? Number(form.idadePessoaCuidada) : 0,
+      descricaoServicoVaga: form.observacao,
+      nomeContratante: form.nomeContratante,
+      idContratante: { id: ID_CONTRATANTE }, // ajustar o "1" para o id apropriado
+    };  
+    
+    try {
+      await api.post("/vagas/criar", novaVaga); // ajuste a rota
+      carregarVagas();                           // recarrega a lista do banco
+      setForm(formVazio);
+      setAberto(false);
+    }catch (err) {
+      console.error("Erro ao criar vaga:", err);
+      alert("Não foi possível criar a vaga.");
+    }
   }
 
   return (
@@ -108,12 +151,24 @@ function PerfilContratante() {
           <div className="lista-vagas">
             {vagas.map((v) => (
               <div className="vaga" key={v.id}>
-                {v.dataHoraVaga && (
+                {v.nomeContratante && <p>Contratante: {v.nomeContratante}</p>}
+                {v.pessoaCuidada && <p>Pessoa Cuidada: {v.pessoaCuidada}</p>}
+                {v.idadePessoaCuidada && <p>Idade: {v.idadePessoaCuidada}</p>}
+                {v.tipoServico && <p>Tipo: {v.tipoServico}</p>}
+                {v.dataHoraVaga && <p>Data e hora: {new Date(v.dataHoraVaga).toLocaleString("pt-BR")}</p>}
+                {v.duracao && <p>Duração: {v.duracao}</p>}
+                {v.valor && <p>Valor: R${v.valor}</p>}
+                {v.localizacao && <p>Local: {v.localizacao}</p>}
+                {v.descricaoServicoVaga && <p>Descrição: {v.descricaoServicoVaga}</p>}
+
+
+
+                {/*{v.dataHoraVaga && (
                   <span>Data e hora do serviço: {new Date(v.dataHoraVaga).toLocaleString("pt-BR")}</span>
                 )}
-                {/*v.duracao && <span>Duração: {v.duracao}</span>*/}
-                {/*v.valor && <span>R$ {v.valor}</span>*/}
-                {/*v.local && <span>Local: {v.local}</span>*/}
+                {v.duracao && <span>Duração: {v.duracao}</span>}
+                {v.valor && <span>Valor: R$ {v.valor}</span>}
+                {v.localizacao && <span>Local: {v.localizacao}</span>}
                 {v.idContratante && <span>Contratante: 
                   <br></br><span style={{paddingLeft: '10px', width: '170px', display: 'block'}}>
                     Nome: {v.idContratante.nome}<br></br>
@@ -123,17 +178,14 @@ function PerfilContratante() {
                     CEP: {v.idContratante.cep}
                     </span>
                   </span>}
-                {/*v.pessoa && (
+                {v.pessoaCuidada && (
                   <span>
-                    Pessoa cuidada: {v.pessoa}
-                    {v.idade && `, ${v.idade} anos`}
+                    Pessoa cuidada: {v.pessoaCuidada}
+                    {v.idadePessoaCuidada && `, ${v.idadePessoaCuidada} anos`}
                   </span>
-                )*/}
-                {v.descricaoServicoVaga && <p>Descrição: {v.descricaoServicoVaga}</p>}
-                <button
-                  type="button"
-                  onClick={() => setVagas(vagas.filter((x) => x.id !== v.id))}
-                >
+                )}
+                {v.descricaoServicoVaga && <p>Descrição: {v.descricaoServicoVaga}</p>}*/}
+                <button type="button" onClick={() => excluir(v.id)}>
                   Excluir
                 </button>
               </div>
@@ -152,7 +204,7 @@ function PerfilContratante() {
 
               <label>
                 Tipo de serviço:
-                <input name="tipo" value={form.tipo} onChange={mudar} required />
+                <input name="tipoServico" value={form.tipoServico} onChange={mudar} required />
               </label>
 
               <label>
@@ -167,27 +219,27 @@ function PerfilContratante() {
 
               <label>
                 Valor (R$):
-                <input name="valor" type="number" min="0" value={form.valor} onChange={mudar} />
+                <input name="valor" type="number" min="0" step="0.01" value={form.valor} onChange={mudar} />
               </label>
 
               <label>
                 Localização:
-                <input name="local" value={form.local} onChange={mudar} />
+                <input name="localizacao" value={form.localizacao} onChange={mudar} />
               </label>
 
               <label>
                 Contratante:
-                <input name="contratante" value={form.contratante} onChange={mudar} />
+                <input name="nomeContratante" value={form.nomeContratante} onChange={mudar} />
               </label>
 
               <label>
                 Pessoa cuidada:
-                <input name="pessoa" value={form.pessoa} onChange={mudar} />
+                <input name="pessoaCuidada" value={form.pessoaCuidada} onChange={mudar} />
               </label>
 
               <label>
                 Idade da pessoa cuidada:
-                <input name="idade" type="number" min="0" value={form.idade} onChange={mudar} />
+                <input name="idadePessoaCuidada" type="number" min="0" value={form.idadePessoaCuidada} onChange={mudar} />
               </label>
 
               <label>
@@ -210,3 +262,4 @@ function PerfilContratante() {
 }
 
 export default PerfilContratante
+
