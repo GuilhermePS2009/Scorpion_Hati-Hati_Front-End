@@ -1,7 +1,21 @@
 import { Link } from "react-router-dom";
 import './css/feedPrestador.css'
+import { useEffect, useState } from "react";
+import api from "../services/api";
 
 function feedPrestador() {
+  const [vagas, setVagas] = useState([]);
+
+  useEffect(() => { 
+    carregarVagas()
+  }, []);
+
+  function carregarVagas(){
+    return api
+      .get("/vagas/GetAll")
+      .then((response) => setVagas(response.data))
+      .catch((err) => console.error("Ops! Ocorreu um erro: " + err))
+  }
 
   return (
     <>
@@ -29,6 +43,18 @@ function feedPrestador() {
                 <option>3</option>
                 <option>4</option>
               </select>
+            </div>
+            <div className="lista-vagas">
+              {vagas.map((v) => (
+                <div className="vaga" key={v.id}>
+                  {v.dataHoraVaga && <p>Data: {new Date(v.dataHoraVaga).getDate().toLocaleString("pt-BR")}</p>}
+                  {v.dataHoraVaga && <p>Hora: {new Date(v.dataHoraVaga).getHours().toLocaleString("pt-BR")}</p>}
+                  {v.localizacao && <p>Localização: {v.localizacao}</p>}
+                  {v.nomeContratante && <p>Contratante: {v.nomeContratante}</p>}
+                  {v.tipoServico && <p>Cuidado: {v.tipoServico}</p>}
+                </div>
+              )
+              )}
             </div>
 
         </main>
