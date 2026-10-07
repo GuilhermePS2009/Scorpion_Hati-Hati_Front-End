@@ -47,11 +47,13 @@ function feedPrestador() {
             <div className="lista-vagas">
               {vagas.map((v) => (
                 <div className="vaga" key={v.id}>
-                  {v.dataHoraVaga && <p>Data: {new Date(v.dataHoraVaga).getDate().toLocaleString("pt-BR")}</p>}
-                  {v.dataHoraVaga && <p>Hora: {new Date(v.dataHoraVaga).getHours().toLocaleString("pt-BR")}</p>}
+                  
+                  {v.tipoServico && <p className="vaga-titulo">{v.tipoServico}</p>}
+                  {v.dataHoraVaga && <p>Data e hora: {new Date(v.dataHoraVaga).toLocaleString()}</p>}
+                  {/*v.dataHoraVaga && <p>Hora: {new Date(v.dataHoraVaga)}</p>*/}
                   {v.localizacao && <p>Localização: {v.localizacao}</p>}
                   {v.nomeContratante && <p>Contratante: {v.nomeContratante}</p>}
-                  {v.tipoServico && <p>Cuidado: {v.tipoServico}</p>}
+                  {v.pessoaCuidada && <p>Cuidado: {v.pessoaCuidada}</p>}
                 </div>
               )
               )}
