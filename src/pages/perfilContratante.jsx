@@ -25,6 +25,13 @@ function PerfilContratante() {
   const [form, setForm] = useState(formVazio);
 
   const [vagas, setVagas] = useState([])
+
+  let agora = new Date()
+  agora.setHours(agora.getHours() - 3) // Ajustando conforme o fuso horário do Brasil
+  let tempoMin = new Date(agora)
+  tempoMin.setMinutes(tempoMin.getMinutes() + 10)
+  tempoMin = tempoMin.toISOString().slice(0, 19)
+  console.log(tempoMin)
     /*(() => {
     const salvo = localStorage.getItem("vagas");
 
@@ -209,7 +216,7 @@ function PerfilContratante() {
 
               <label>
                 Data e horário:
-                <input name="dataHora" type="datetime-local" value={form.dataHora} onChange={mudar} />
+                <input name="dataHora" type="datetime-local" value={form.dataHora}  min={tempoMin} onChange={mudar} />
               </label>
 
               <label>
