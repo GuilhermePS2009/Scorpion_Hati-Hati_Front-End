@@ -7,15 +7,17 @@ function cadastro() {
     <>
       <div className="cadastroFolha">
         <p className="um">Cadastro</p>
-        <p className="dois">Entrar como:</p><br></br>
 
-        <Link to="/perfilContratante">
-          <button className="botaoCadastro">Perfil Contratante</button><br></br>
-        </Link>
-
-        <Link to="/perfilPrestador">
-          <button className="botaoCadastro">Perfil Prestador</button>
-        </Link>
+        <label>Nome de usuário: </label> <input type="text" /><br/>
+        <label>Cidade: </label><input type="text"/> <br/>
+        <label>Estado: </label>
+        <select>
+        <option disabled>Selecione</option>
+        <option>SP</option>
+        </select><br/>
+        <label >CEP: </label><input type="text" /> <br/>
+        <input type="checkbox" value="Usuario"/><label>Contratante</label><br/>
+        <input type="checkbox" value="Usuario"/><label>Prestador</label>
       </div>
     </>
   )
