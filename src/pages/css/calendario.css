@@ -1,0 +1,495 @@
+
+/* =====================================
+   CALENDÁRIO - SCORPION HATI-HATI
+   ===================================== */
+
+.pagina-calendario {
+  --cal-verde-escuro: #005f57;
+  --cal-verde: #00aa98;
+  --cal-turquesa: #00cbb6;
+  --cal-azul-texto: #003e3c;
+  --cal-borda: #9aeae6;
+
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  background: #f9fdfd;
+  color: #072036;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* MENU LATERAL */
+
+.cal-sidebar {
+  width: 112px;
+  min-width: 112px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(
+    170deg,
+    #006b65 0%,
+    #004c47 100%
+  );
+  padding: 30px 8px;
+  gap: 14px;
+}
+
+.cal-sidebar-espaco {
+  height: 5px;
+}
+
+.cal-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  min-height: 95px;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 700;
+  border-radius: 17px;
+}
+
+.cal-nav-ativo {
+  background: linear-gradient(
+    135deg,
+    #00d8c3,
+    #00ae9e
+  );
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.09);
+}
+
+/* CONTEÚDO PRINCIPAL */
+
+.cal-conteudo {
+  flex: 1;
+  min-width: 0;
+  padding: 24px 24px 30px;
+  background: #fcfefe;
+}
+
+/* CABEÇALHO */
+
+.cal-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.cal-titulo-grupo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cal-icone-titulo {
+  width: 65px;
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--cal-verde);
+  background: linear-gradient(
+    135deg,
+    #e2faf9,
+    #b5eeeb
+  );
+  border-radius: 19px;
+}
+
+.cal-titulo-grupo h1 {
+  margin: 0;
+  font-size: clamp(26px, 3vw, 42px);
+  font-weight: 800;
+  color: #081b30;
+  letter-spacing: -1.2px;
+}
+
+.cal-menu-visual {
+  color: var(--cal-verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+
+/* SELETOR DE MÊS */
+
+.cal-seletor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 12px 0 14px;
+}
+
+.cal-linha {
+  flex: 1;
+  height: 1.5px;
+  background: #16d9cb;
+}
+
+.cal-mes-controle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 285px;
+  height: 48px;
+  padding: 0 12px;
+  border-radius: 28px;
+  background: linear-gradient(
+    180deg,
+    #00bba8,
+    #008a7d
+  );
+  color: white;
+}
+
+.cal-mes-controle h2 {
+  font-size: 27px;
+  line-height: 1;
+  font-weight: 750;
+  margin: 0;
+}
+
+.cal-mes-controle button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 38px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.cal-mes-controle button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.cal-mes-controle button:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* GRADE DO CALENDÁRIO */
+
+.cal-rolagem {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.cal-grade {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 5px;
+  width: 100%;
+}
+
+/* CABEÇALHO DOS DIAS */
+
+.cal-dia-semana {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 35px;
+  padding: 5px 3px;
+  border-radius: 12px;
+  background: linear-gradient(
+    180deg,
+    #e2f8f8,
+    #c5f0ef
+  );
+  color: var(--cal-azul-texto);
+  font-size: clamp(11px, 1.45vw, 17px);
+  font-weight: 800;
+  text-align: center;
+}
+
+/* CÉLULAS DOS DIAS */
+
+.cal-dia {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  min-width: 0;
+  height: clamp(76px, 8.3vw, 105px);
+  padding: 7px 9px;
+  border: 1px solid var(--cal-borda);
+  border-radius: 12px;
+  background: #ffffff;
+  color: var(--cal-azul-texto);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.cal-dia:hover {
+  border-color: #00b6a4;
+  box-shadow: 0 3px 12px rgba(0, 150, 140, 0.12);
+}
+
+.cal-dia:focus-visible {
+  outline: 2px solid #008f82;
+  outline-offset: 1px;
+}
+
+.cal-dia.cal-selecionado {
+  outline: 2px solid #008f82;
+  outline-offset: -2px;
+}
+
+.cal-numero {
+  display: block;
+  font-size: clamp(15px, 1.5vw, 20px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 5px;
+}
+
+.cal-outro-mes .cal-numero {
+  color: #8b98a6;
+}
+
+/* FOLGAS */
+
+.cal-dia-folga {
+  background: linear-gradient(
+    135deg,
+    #fff7e8,
+    #fffdf9
+  );
+  border-color: #fbc33d;
+}
+
+.cal-dia-folga.cal-outro-mes {
+  background: linear-gradient(
+    135deg,
+    #e7edf2,
+    #d6dce2
+  );
+  border-color: #d3dee5;
+}
+
+.cal-evento-simples {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  color: #171717;
+  font-size: clamp(10px, 1.1vw, 14px);
+  line-height: 1.15;
+  font-weight: 700;
+}
+
+.cal-dia-folga .cal-evento-simples svg {
+  flex-shrink: 0;
+  color: #bd7400;
+}
+
+.cal-dia-folga.cal-outro-mes .cal-evento-simples svg {
+  color: #536679;
+}
+
+/* FERIADOS */
+
+.cal-dia-feriado {
+  background: linear-gradient(
+    135deg,
+    #ffedac,
+    #ffda62
+  );
+  border-color: #ffde71;
+}
+
+.cal-dia-feriado .cal-evento-simples svg {
+  flex-shrink: 0;
+  color: #b56500;
+}
+
+/* AGENDAMENTOS */
+
+.cal-dia-agendamento {
+  background: linear-gradient(
+    135deg,
+    #e5fff5,
+    #a4f5d7
+  );
+  border-color: #79e7c6;
+}
+
+.cal-lista-eventos {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+
+.cal-evento-linha {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  color: #112c26;
+  font-size: clamp(9px, 0.92vw, 12px);
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+.cal-evento-linha strong {
+  font-weight: 800;
+}
+
+.cal-bolinha {
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-top: 3px;
+}
+
+.cal-bolinha.verde {
+  background: #18d91c;
+}
+
+.cal-bolinha.vermelho {
+  background: #ff3e4d;
+}
+
+/* DIA COM HORÁRIOS OCUPADOS */
+
+.cal-dia-ocupado {
+  background: linear-gradient(
+    135deg,
+    #d7ffd0,
+    #99f8a4
+  );
+  border-color: #69de7a;
+}
+
+.cal-dia-ocupado .cal-evento-simples svg {
+  flex-shrink: 0;
+  color: #139b32;
+}
+
+/* ADAPTAÇÃO PARA NOTEBOOKS */
+
+@media (max-width: 1100px) {
+  .cal-sidebar {
+    width: 88px;
+    min-width: 88px;
+  }
+
+  .cal-conteudo {
+    padding: 22px 14px;
+  }
+
+  .cal-dia {
+    padding: 7px 5px;
+  }
+
+  .cal-evento-simples {
+    gap: 3px;
+  }
+}
+
+/* ADAPTAÇÃO PARA CELULARES */
+
+@media (max-width: 700px) {
+  .pagina-calendario {
+    flex-direction: column;
+  }
+
+  .cal-sidebar {
+    width: 100%;
+    min-width: 0;
+    min-height: 75px;
+    height: 75px;
+    flex-direction: row;
+    justify-content: center;
+    padding: 6px;
+  }
+
+  .cal-sidebar-espaco {
+    display: none;
+  }
+
+  .cal-nav-item {
+    width: 100px;
+    min-height: 60px;
+    font-size: 12px;
+    gap: 2px;
+  }
+
+  .cal-nav-item svg {
+    width: 23px;
+    height: 23px;
+  }
+
+  .cal-conteudo {
+    padding: 18px 12px;
+  }
+
+  .cal-titulo-grupo {
+    gap: 10px;
+  }
+
+  .cal-titulo-grupo h1 {
+    font-size: 25px;
+  }
+
+  .cal-icone-titulo {
+    width: 47px;
+    height: 47px;
+    border-radius: 12px;
+  }
+
+  .cal-icone-titulo svg {
+    width: 27px;
+    height: 27px;
+  }
+
+  .cal-mes-controle {
+    width: 215px;
+    min-width: 215px;
+    height: 43px;
+  }
+
+  .cal-mes-controle h2 {
+    font-size: 22px;
+  }
+
+  .cal-grade {
+    min-width: 720px;
+  }
+
+  .cal-dia {
+    height: 84px;
+  }
+
+  .cal-dia-semana {
+    font-size: 13px;
+  }
+
+  .cal-evento-simples {
+    font-size: 11px;
+  }
+
+  .cal-evento-linha {
+    font-size: 10px;
+  }
+}
