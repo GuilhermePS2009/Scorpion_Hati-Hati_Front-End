@@ -19,7 +19,7 @@ function Login() {
                 </Link>
                 <spam>Não possue conta?</spam>
                 <Link to="/Cadastro">
-                    <spam >Cadaste-se</spam><br></br>
+                    <spam >Cadastre-se</spam><br></br>
                 </Link>
             </div>
             <img src="src/assets/feedFoto.png"/>

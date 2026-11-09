@@ -216,42 +216,42 @@ function PerfilContratante() {
 
               <label>
                 Data e horário:
-                <input name="dataHora" type="datetime-local" value={form.dataHora}  min={tempoMin} onChange={mudar} />
+                <input name="dataHora" type="datetime-local" value={form.dataHora}  min={tempoMin} onChange={mudar} required/>
               </label>
 
               <label>
                 Duração:
-                <input name="duracao" value={form.duracao} onChange={mudar} />
+                <input name="duracao" value={form.duracao} onChange={mudar} required/>
               </label>
 
               <label>
                 Valor (R$):
-                <input name="valor" type="number" min="0" step="0.01" value={form.valor} onChange={mudar} />
+                <input name="valor" type="number" min="0" step="0.01" value={form.valor} onChange={mudar} required/>
               </label>
 
               <label>
                 Localização:
-                <input name="localizacao" value={form.localizacao} onChange={mudar} />
+                <input name="localizacao" value={form.localizacao} onChange={mudar} required/>
               </label>
 
               <label>
                 Contratante:
-                <input name="nomeContratante" value={form.nomeContratante} onChange={mudar} />
+                <input name="nomeContratante" value={form.nomeContratante} onChange={mudar} required/>
               </label>
 
               <label>
                 Pessoa cuidada:
-                <input name="pessoaCuidada" value={form.pessoaCuidada} onChange={mudar} />
+                <input name="pessoaCuidada" value={form.pessoaCuidada} onChange={mudar} required/>
               </label>
 
               <label>
                 Idade da pessoa cuidada:
-                <input name="idadePessoaCuidada" type="number" min="0" value={form.idadePessoaCuidada} onChange={mudar} />
+                <input name="idadePessoaCuidada" type="number" min="0" value={form.idadePessoaCuidada} onChange={mudar} required/>
               </label>
 
               <label>
                 Observações:
-                <textarea name="observacao" rows="3" value={form.observacao} onChange={mudar} />
+                <textarea name="observacao" rows="3" value={form.observacao} onChange={mudar} defaultValue="Nenhuma"/>
               </label>
 
               <div className="modal-botoes">
