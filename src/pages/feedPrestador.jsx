@@ -37,7 +37,7 @@ function feedPrestador() {
             <div className="filtro-boxP">
               <span className="icone-filtroP" aria-hidden="true"></span>
               <select defaultValue="">
-                <option value="" disabled>Filtro</option>
+                <option value="" disabled>Todos</option>
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
