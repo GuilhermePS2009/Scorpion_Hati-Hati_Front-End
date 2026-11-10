@@ -1,0 +1,480 @@
+
+/* =========================================
+   TELA DE AGENDAMENTOS - SCORPION HATI-HATI
+   ========================================= */
+
+.ag-pagina {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  background: #ffffff;
+  color: #092035;
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+
+.ag-pagina *,
+.ag-pagina *::before,
+.ag-pagina *::after {
+  box-sizing: border-box;
+}
+
+/* MENU LATERAL */
+
+.ag-sidebar {
+  width: 112px;
+  min-width: 112px;
+  min-height: 100vh;
+  padding: 16px 8px;
+  background: linear-gradient(
+    160deg,
+    #006c63,
+    #004e48
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.ag-menu-item {
+  width: 100%;
+  min-height: 105px;
+  padding: 12px 5px;
+  border: none;
+  border-radius: 15px;
+  background: transparent;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  font: inherit;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.ag-menu-item:hover {
+  background: rgba(0, 223, 198, 0.22);
+}
+
+.ag-menu-visual {
+  cursor: default;
+}
+
+.ag-voltar {
+  margin-bottom: 5px;
+}
+
+.ag-menu-item svg {
+  flex-shrink: 0;
+}
+
+/* CONTEÚDO PRINCIPAL */
+
+.ag-conteudo {
+  flex: 1;
+  min-width: 0;
+  padding: 30px 30px 55px;
+}
+
+/* CABEÇALHO */
+
+.ag-cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 25px;
+}
+
+.ag-titulo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #071c32;
+  font-size: clamp(22px, 2.5vw, 32px);
+  font-weight: 800;
+}
+
+.ag-icone-titulo {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 15px;
+  background: #cef7f0;
+  color: #008d7e;
+}
+
+.ag-dia-semana {
+  margin: 13px 0 5px;
+  font-size: clamp(30px, 4vw, 54px);
+  line-height: 1.1;
+  letter-spacing: -1px;
+  font-weight: 800;
+  text-transform: capitalize;
+  color: #061a30;
+}
+
+.ag-data {
+  margin: 0;
+  color: #00a18e;
+  font-size: clamp(22px, 3vw, 36px);
+  font-weight: 800;
+}
+
+.ag-calendario-grande {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 110px;
+  height: 110px;
+  border-radius: 30px;
+  background: #cff8ef;
+  color: #008f80;
+  flex-shrink: 0;
+}
+
+.ag-linha-divisoria {
+  height: 3px;
+  margin: 26px 0 28px;
+  background: #24d5c0;
+}
+
+/* LISTA DE SERVIÇOS */
+
+.ag-lista-servicos {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* CARTÕES */
+
+.ag-card {
+  overflow: hidden;
+  background: #ffffff;
+  border: 1.5px solid #69d9c9;
+  border-radius: 22px;
+  box-shadow: 0 5px 18px rgba(0, 93, 81, 0.04);
+}
+
+.ag-card-cabecalho {
+  min-height: 83px;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  background: linear-gradient(
+    90deg,
+    #e2faf6,
+    #ebfcf8
+  );
+}
+
+.ag-servico-titulo {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+}
+
+.ag-numero {
+  width: 55px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 15px;
+  background: #9debdc;
+  color: #006a60;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.ag-servico-titulo h2 {
+  margin: 0;
+  font-size: clamp(22px, 2.5vw, 32px);
+  font-weight: 800;
+  color: #071b32;
+}
+
+/* STATUS */
+
+.ag-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 135px;
+  padding: 11px 16px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.ag-confirmado {
+  color: #06831b;
+  background: #c0fac7;
+}
+
+.ag-pendente {
+  color: #ac7900;
+  background: #fff0b9;
+}
+
+/* INFORMAÇÕES DOS SERVIÇOS */
+
+.ag-card-informacoes {
+  display: grid;
+  grid-template-columns: 0.8fr 1.1fr 1.3fr;
+  gap: 0;
+  padding: 22px 24px 18px;
+}
+
+.ag-informacao {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 6px 20px;
+  border-right: 1px solid #c2d7d9;
+}
+
+.ag-informacao:first-child {
+  padding-left: 0;
+}
+
+.ag-informacao:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.ag-info-icone {
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 16px;
+  background: #def8f2;
+  color: #008b7e;
+}
+
+.ag-informacao > div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.ag-label {
+  color: #667b80;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.ag-informacao strong {
+  color: #17272d;
+  font-size: clamp(13px, 1.3vw, 17px);
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+/* BOTÕES */
+
+.ag-card-rodape {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin: 0 24px;
+  padding: 16px 0 20px;
+  border-top: 1px solid #e3f0ee;
+}
+
+.ag-card-rodape button {
+  min-height: 47px;
+  padding: 10px 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 13px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.ag-card-rodape button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.ag-btn-reagendar {
+  background: linear-gradient(
+    120deg,
+    #00b99f,
+    #008d7c
+  );
+  color: #ffffff;
+  border: none;
+}
+
+.ag-btn-cancelar {
+  background: #fff7f7;
+  color: #c62828;
+  border: 1px solid #ff9097;
+}
+
+/* NENHUM SERVIÇO */
+
+.ag-sem-servicos {
+  text-align: center;
+  padding: 65px 20px;
+  border: 1px dashed #86dacc;
+  background: #f5fffc;
+  border-radius: 20px;
+  color: #008f80;
+}
+
+.ag-sem-servicos h2 {
+  color: #102d36;
+  font-size: 25px;
+}
+
+.ag-sem-servicos p {
+  color: #637b80;
+}
+
+.ag-sem-servicos button {
+  margin-top: 18px;
+  padding: 13px 25px;
+  border-radius: 12px;
+  border: none;
+  background: #009f90;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 1050px) {
+  .ag-conteudo {
+    padding: 24px 20px;
+  }
+
+  .ag-card-informacoes {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .ag-informacao,
+  .ag-informacao:first-child,
+  .ag-informacao:last-child {
+    border-right: none;
+    padding: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .ag-pagina {
+    flex-direction: column;
+  }
+
+  .ag-sidebar {
+    width: 100%;
+    min-width: 0;
+    min-height: 75px;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 6px;
+    gap: 4px;
+  }
+
+  .ag-menu-item {
+    min-height: 63px;
+    font-size: 12px;
+    gap: 3px;
+  }
+
+  .ag-menu-item svg {
+    width: 23px;
+    height: 23px;
+  }
+
+  .ag-conteudo {
+    padding: 20px 12px;
+  }
+
+  .ag-calendario-grande {
+    width: 55px;
+    height: 55px;
+    border-radius: 16px;
+  }
+
+  .ag-calendario-grande svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .ag-titulo {
+    font-size: 20px;
+  }
+
+  .ag-dia-semana {
+    font-size: 30px;
+  }
+
+  .ag-data {
+    font-size: 23px;
+  }
+
+  .ag-card-cabecalho {
+    padding: 15px;
+  }
+
+  .ag-numero {
+    width: 40px;
+    height: 40px;
+    font-size: 19px;
+  }
+
+  .ag-servico-titulo {
+    gap: 9px;
+  }
+
+  .ag-servico-titulo h2 {
+    font-size: 20px;
+  }
+
+  .ag-status {
+    min-width: 0;
+    font-size: 11px;
+    padding: 8px;
+  }
+
+  .ag-card-informacoes {
+    padding: 20px 15px;
+  }
+
+  .ag-card-rodape {
+    margin: 0 15px;
+    gap: 8px;
+  }
+
+  .ag-card-rodape button {
+    flex: 1;
+    font-size: 12px;
+    padding: 10px 8px;
+  }
+}

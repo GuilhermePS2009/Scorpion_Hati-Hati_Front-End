@@ -1,4 +1,5 @@
 
+import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import "./css/calendario.css";
 
@@ -119,6 +120,8 @@ function chaveData(data) {
 }
 
 export default function Calendario() {
+
+  const navigate = useNavigate();
   // Começamos em abril de 2026, como na referência
   const [dataAtual, setDataAtual] = useState(
     new Date(2026, 3, 1)
@@ -262,7 +265,7 @@ export default function Calendario() {
                 <button
                   type="button"
                   key={dia.chave}
-                  onClick={() => setDiaSelecionado(dia.chave)}
+                  onClick={() => navigate(`/calendario/${dia.chave}`)}
                   className={[
                     "cal-dia",
                     `cal-dia-${tipo}`,

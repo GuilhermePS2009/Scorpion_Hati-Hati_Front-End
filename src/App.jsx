@@ -1,26 +1,44 @@
+
+
 import './App.css'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 import Cadastro from "./pages/cadastro";
 import PerfilContratante from './pages/perfilContratante';
 import PerfilPrestador from './pages/perfilPrestador';
 import FeedContratante from './pages/feedContratante';
 import FeedPrestador from './pages/feedPrestador';
-import Login from './pages/login'
+import Login from './pages/login';
+import Calendario from './pages/calendario';
+
+// NOVA TELA DE AGENDAMENTOS
+import Agendamentos from './pages/agendamentos';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/cadastro" replace />} />
+
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/perfilContratante" element={<PerfilContratante />} />
         <Route path="/perfilPrestador" element={<PerfilPrestador />} />
         <Route path="/feedContratante" element={<FeedContratante />} />
         <Route path="/feedPrestador" element={<FeedPrestador />} />
         <Route path="/login" element={<Login />} />
+
+        <Route path="/calendario" element={<Calendario />} />
+
+        {/* ROTA DOS AGENDAMENTOS */}
+        <Route
+          path="/calendario/:data"
+          element={<Agendamentos />}
+        />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
+
+
