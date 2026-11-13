@@ -20,16 +20,25 @@ function cadastro() {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
+  function mudarCheckbox(e) {
+    setForm({ ...form, [e.target.name]: e.target.checked})
+  }
+
+  /*function mudarSelect(e) {
+    let estado = siglaParaEstado[e.target.value]
+    // console.log(estado)
+    setForm({ ...form, [e.target.name]: estado})
+  }*/
+
   async function enviar(e){
     e.preventDefault()
 
     const novoUsuario = {
       nome: form.nome,
       cidade: form.cidade,
-      estado: form.estado.value,
+      estado: form.estado,
       cep: form.cep,
-      tipo: form.tipo,      
-      id: null
+      tipo: form.tipo
     }
 
     try {
@@ -53,11 +62,13 @@ function cadastro() {
         <label>Cidade: </label><input type="text" name="cidade" onChange={mudar}/> <br/>
         <label>Estado: </label>
         <select name="estado" onChange={mudar}>
-        <option disabled>Selecione</option>
-        <option>SP</option>
+          <option selected disabled>Selecione</option>
+          <option>SP</option>
+          <option>RJ</option>
+          <option>GO</option>
         </select><br/>
         <label >CEP: </label><input type="text" name="cep" onChange={mudar}/> <br/>
-        <input type="checkbox" name="tipo" value="Usuario"/><label>Contratante</label><br/>
+        <input type="checkbox" name="tipo" value="Usuario" onChange={mudarCheckbox}/><label>Contratante</label><br/>
         <input type="checkbox" value="Usuario"/><label>Prestador</label><br/>
         <button type="submit">Criar</button>
         </form>

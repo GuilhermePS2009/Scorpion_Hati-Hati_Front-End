@@ -5,6 +5,12 @@ import './css/botao.css'
 import './css/feedContratante.css'
 import api from "../services/api";
 
+const siglaParaEstado = {
+  'SP': "São Paulo",
+  'RJ': "Rio de Janeiro",
+  'GO': "Goiás"
+}
+
 function feedContratante() {
   const [prestadores, setPrestadores] = useState([]);
 
@@ -67,7 +73,7 @@ function feedContratante() {
               {prestadores.map((p) => (
                 <div /*classname="prestador"*/ key={p.id}>
                   {p.nome && <p>Nome: {p.nome}</p>}
-                  {p.estado && <p>Estado: {p.estado}</p>}
+                  {p.estado && <p>Estado: {siglaParaEstado[p.estado]}</p>}
                   {p.cidade && <p>Cidade: {p.cidade}</p>}
                   {p.avaliacoes && <p>Nota: {p.avaliacoes} </p> || <p>Nota: Não avaliado</p>/* Se o contratante tiver uma nota registrada, ela é exibida, 
                                                                                                Caso contrário, é exibido que ele não é avaliado
