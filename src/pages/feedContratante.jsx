@@ -46,7 +46,7 @@ function feedContratante() {
             <input type="search" placeholder="Pesquisar..." aria-label="Pesquisar"/>
             <div className="filtro-boxC">
               <span className="icone-filtroC" aria-hidden="true"></span>
-              <select defaultValue="todos">
+              {/*<select defaultValue="todos">
                 <option value="">
                 <select>
                   <option value="Todos" disabled>Todos</option>
@@ -66,7 +66,7 @@ function feedContratante() {
                   <option>4</option>
                 </select>
                 </option>
-              </select>
+              </select>*/}
             </div>
 
             <div /*className="lista-prestadores"*/>

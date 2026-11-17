@@ -30,8 +30,7 @@ function PerfilContratante() {
   agora.setHours(agora.getHours() - 3) // Ajustando conforme o fuso horário do Brasil
   let tempoMin = new Date(agora)
   tempoMin.setMinutes(tempoMin.getMinutes() + 10)
-  tempoMin = tempoMin.toISOString().slice(0, 19)
-  console.log(tempoMin)
+  tempoMin = tempoMin.toISOString().slice(0, 16)
     /*(() => {
     const salvo = localStorage.getItem("vagas");
 
