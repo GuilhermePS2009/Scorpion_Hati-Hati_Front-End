@@ -23,7 +23,7 @@ function PerfilPrestador() {
         </Link>
 
         <Link to="/perfilPrestador">
-          <div className="botao"><img src="src/assets/perfilFoto.png" alt="Perfil" />Perfil</div>
+          <div className="botao botaoSel botaoP"><img src="src/assets/perfilFoto.png" alt="Perfil" />Perfil</div>
         </Link>
       </div>
 
@@ -59,8 +59,6 @@ function PerfilPrestador() {
             ))}
           </div>*/}
         </div>
-
-        <div className="linha"></div>
 
         <section className="anexos">
           <label>

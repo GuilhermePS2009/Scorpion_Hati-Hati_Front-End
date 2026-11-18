@@ -31,7 +31,7 @@ function feedContratante() {
     <>
       <div className="botoes">
             <Link to="/feedContratante">
-                <div className="botao"><img src="src/assets/feedFoto.png" alt="Img da Feed"/>Feed</div>
+                <div className="botao botaoSel botaoF"><img src="src/assets/feedFoto.png" alt="Img da Feed"/>Feed</div>
             </Link>
 
             <Link to="/perfilContratante">

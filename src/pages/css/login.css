@@ -1,0 +1,140 @@
+:root {
+  --u: min(1vw, 9px); /* 1 unidade = 1% da largura, limitada a 9px */
+}
+
+body {
+  margin: 0;
+  background: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Topo */
+.login-topo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: calc(var(--u) * 10);
+}
+
+.login-titulo {
+  margin: 0;
+  font-family: "Brush Script MT", "Segoe Script", cursive;
+  font-style: italic;
+  font-size: calc(var(--u) * 8);
+  line-height: 1.1;
+  color: #f2c230;
+  text-shadow: calc(var(--u) * 0.4) calc(var(--u) * 0.4) 0 #c99a10;
+}
+
+.login-lema {
+  font-family: "Brush Script MT", "Segoe Script", cursive;
+  font-size: calc(var(--u) * 4.2);
+  font-weight: bold;
+  color: #000;
+  margin-top: calc(var(--u) * 0.5);
+}
+
+/* Linha com os cachorros e o cartão */
+.login-conteudo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: calc(var(--u) * 100);
+  margin: calc(var(--u) * 1) auto 0;
+  padding: 0 calc(var(--u) * 1);
+  box-sizing: border-box;
+}
+
+.login-cachorro {
+  
+  width: calc(var(--u) * 100);
+  height: auto;
+  max-height: calc(var(--u) * 100);
+  object-fit: contain;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+/* Cartão verde */
+.login-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 calc(var(--u) * 50); /* não encolhe nem cresce */
+  width: calc(var(--u) * 50);
+  min-height: calc(var(--u) * 50);
+  box-sizing: border-box;
+  padding: calc(var(--u) * 2.5) calc(var(--u) * 3);
+  background: #0f7a68;
+  border-radius: calc(var(--u) * 7);
+}
+
+.login-card-titulo {
+  font-size: calc(var(--u) * 4.8);
+  font-weight: bold;
+  color: #1fc4a0;
+  margin-bottom: calc(var(--u) * 2.5);
+}
+
+.login-input {
+  width: 100%;
+  box-sizing: border-box;
+  height: calc(var(--u) * 5.3);
+  padding: 0 calc(var(--u) * 2.5);
+  margin-bottom: calc(var(--u) * 2.2);
+  border: none;
+  border-radius: calc(var(--u) * 5);
+  background: #fff;
+  font-size: calc(var(--u) * 2.8);
+  outline: none;
+}
+
+.login-botao {
+  width: calc(var(--u) * 21);
+  height: calc(var(--u) * 5.3);
+  margin: calc(var(--u) * 1) 0 calc(var(--u) * 1.5);
+  border: none;
+  border-radius: calc(var(--u) * 5);
+  background: #e0ac1c;
+  color: #fff;
+  font-weight: bold;
+  font-size: calc(var(--u) * 2.8);
+  cursor: pointer;
+}
+
+.login-botao:hover {
+  background: #c99a10;
+}
+
+.login-texto {
+  display: block;
+  color: #fff;
+  font-size: calc(var(--u) * 2.7);
+  font-weight: bold;
+  text-align: center;
+}
+
+.login-link {
+  color: #e0ac1c;
+  margin-top: calc(var(--u)*3);
+  font-size: calc(var(--u) * 2.5);
+  text-decoration: underline;
+  text-align: center;
+}
+.login-link:hover{
+  color: #c99a10;
+}
+
+/* amplia o desenho dentro da caixa, sem alterar o layout */
+.login-cachorro {
+  transform: scale(1.65);
+}
+
+/* cresce a partir do lado do card, para não sair da tela */
+.login-conteudo .login-cachorro:first-child {
+  transform-origin: right center;
+}
+
+.login-conteudo .login-cachorro:last-child {
+  transform-origin: left center;
+}

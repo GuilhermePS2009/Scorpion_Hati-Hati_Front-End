@@ -119,7 +119,7 @@ function PerfilContratante() {
         </Link>
 
         <Link to="/perfilContratante">
-          <div className="botao"><img src="src/assets/perfilFoto.png" alt="Perfil" />Perfil</div>
+          <div className="botao botaoSel botaoP"><img src="src/assets/perfilFoto.png" alt="Perfil" />Perfil</div>
         </Link>
       </div>
 
@@ -145,8 +145,6 @@ function PerfilContratante() {
           </Link>
           <div className="calendario" role="img" aria-label="Calendário"></div>
         </div>
-
-        <div className="linha"></div>
 
         <section className="anexos">
           <button type="button" className="btn-criar" onClick={() => setAberto(true)}>

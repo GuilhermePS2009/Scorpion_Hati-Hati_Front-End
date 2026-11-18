@@ -21,7 +21,7 @@ function feedPrestador() {
     <>
       <div className="botoes">
             <Link to="/feedPrestador">
-                <div className="botao"><img src="src/assets/feedFoto.png" alt="Img da Feed"/>Feed</div>
+                <div className="botao botaoSel botaoF"><img src="src/assets/feedFoto.png" alt="Img da Feed"/>Feed</div>
             </Link>
 
             <Link to="/perfilPrestador">

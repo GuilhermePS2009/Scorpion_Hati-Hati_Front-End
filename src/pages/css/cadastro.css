@@ -1,90 +1,120 @@
-* {
-    box-sizing: border-box;
+:root {
+  --u: 8px; /* exemplo */
 }
 
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
+  margin: 0;
+  background: #fff;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Área que ocupa a tela inteira */
-.cadastroPagina {
-    width: 100%;
-    min-height: 100vh;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.cadastro-link {
+  color: #e0ac1c;
+  margin-top: calc(var(--u)*3);
+  font-size: calc(var(--u) * 2.5);
+  text-decoration: underline;
+  text-align: center;
+}
+.cadastro-link:hover{
+  color: #c99a10;
 }
 
-/* Card */
+/* centraliza o cartão na vertical e na horizontal, só nesta página */
+#root:has(.cadastroFolha) {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Cartão verde */
 .cadastroFolha {
-    width: 90%;
-    max-width: 450px;
 
-    background-color: white;
-
-    padding: 45px 35px;
-
-    border-radius: 25px;
-
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-
-    text-align: center;
-    margin: auto;
-    margin-top: 15%;
+  box-sizing: border-box;
+  width: 420px;
+  max-width: 92%;
+  margin: 40px auto;
+  padding: 28px 36px 32px;
+  background: #0f7a68;
+  border-radius: 32px;
+  color: #fff;
 }
 
-/* Título */
-.um {
-    margin: 0 0 10px;
-
-    font-size: 42px;
-    font-weight: bold;
-
-    color: #2f9d7c;
+/* Título "Cadastro" */
+.cadastroFolha .um {
+  margin: 0 0 22px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  color: #1fc4a0;
 }
 
-/* Subtítulo */
-.dois {
-    margin: 0 0 30px;
-
-    font-size: 22px;
-    color: #444;
+/* Cada linha: label + campo */
+.cadastroFolha label {
+  display: inline-block;
+  width: 130px;
+  margin-bottom: 14px;
+  font-size: 15px;
+  font-weight: bold;
 }
 
-/* Botões */
-.botaoCadastro {
-    width: 100%;
-    height: 55px;
-
-    margin-bottom: 18px;
-
-    border: none;
-    border-radius: 15px;
-
-    background-color: #6af6cf;
-    color: #174f40;
-
-    font-size: 18px;
-    font-weight: bold;
-
-    cursor: pointer;
-
-    transition: 0.2s;
+/* Campos de texto e select */
+.cadastroFolha input[type="text"],
+.cadastroFolha select {
+  box-sizing: border-box;
+  width: calc(100% - 136px);
+  height: 36px;
+  padding: 0 14px;
+  margin-bottom: 14px;
+  border: none;
+  border-radius: 20px;
+  background: #fff;
+  color: #222;
+  font-size: 14px;
+  outline: none;
 }
 
-/* Efeito ao passar o mouse */
-.botaoCadastro:hover {
-    background-color: #4ab698;
-    color: white;
-
-    transform: translateY(-2px);
-
-    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+.cadastroFolha select {
+  cursor: pointer;
 }
 
-/* Efeito ao clicar */
-.botaoCadastro:active {
-    transform: translateY(0);
+.cadastroFolha input[type="text"]:focus,
+.cadastroFolha select:focus {
+  box-shadow: 0 0 0 3px #1fc4a0;
+}
+
+/* Rádios Contratante / Prestador */
+.cadastroFolha input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  margin: 0 8px 0 4px;
+  accent-color: #e0ac1c;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.cadastroFolha input[type="radio"] + label {
+  width: auto;
+  margin-bottom: 10px;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+/* Botão Criar */
+.cadastroFolha button {
+  display: block;
+  width: 160px;
+  height: 38px;
+  margin: 20px auto 0;
+  border: none;
+  border-radius: 20px;
+  background: #e0ac1c;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cadastroFolha button:hover {
+  background: #c99a10;
 }

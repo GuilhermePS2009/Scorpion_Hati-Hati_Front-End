@@ -1,14 +1,15 @@
 :root {
-  --largura-barra: clamp(130px, 7vw, 240px);
+  --largura-barra: clamp(195px, 10.5vw, 360px);
 }
 
 .botoes {
   position: fixed;
   top: 0;
   left: 0;
+  border-radius: 0px 50px 50px 0px;
   width: var(--largura-barra);
   height: 100vh;
-  background-color: #6af6cf;
+  background-color: #107462;
   display: flex;
   flex-direction: column;
 }
@@ -19,30 +20,38 @@
   display: flex;
   color: white;
   text-decoration: none;
-}
-
-/* linha divisória só entre os botões */
-.botoes a:not(:last-child) {
-  border-bottom: 10px solid #4ab698;
+  box-sizing: border-box;
 }
 
 .botao {
   width: 100%;
+  box-sizing: border-box;
+  padding: 0 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 4px;
-  font-size: clamp(1.4rem, 2.6vw, 3rem);   /* texto maior */
+  text-align: center;
+  overflow-wrap: anywhere;
+  font-size: clamp(1rem, 1.6vw, 2rem);   /* menor, para caber na barra */
 }
 
 .botao img {
-  width: clamp(84px, 6vw, 156px);          /* ícones maiores */
+  width: clamp(84px, 6vw, 156px);          /* igual ao original */
   height: clamp(84px, 6vw, 156px);
   object-fit: contain;
   filter: brightness(0) invert(1);
 }
 
-.botao:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+.botaoSel{
+  border-radius: 50px 0 0 50px;
+  background-color: #10c8a7;
+}
+
+.botaoF{
+  border-radius: 50px 50px 0 50px;
+}
+.botaoP{
+  border-radius: 50px 0px 50px 50px;
 }

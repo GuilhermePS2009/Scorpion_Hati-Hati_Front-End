@@ -1,28 +1,29 @@
 import { Link } from "react-router-dom";
+import "./css/login.css";
 
 function Login() {
   return (
     <>
-        <div>
-            <h1>Hati-Hati</h1>
-            <spam>Cuidar é prioridade, pois da oportunidade</spam>
+        <div className="login-topo">
+            <h1 className="login-titulo">Hati-Hati</h1>
+            <spam className="login-lema">Cuidar é prioridade, pois da oportunidade</spam>
         </div>
-        <div>
-            <img src="src/assets/feedFoto.png"/>
-            <div>
-                <spam>Login</spam>
-                <input type="text"/>
-                <input type="password"/>
+        <div className="login-conteudo">
+            <img className="login-cachorro" src="src/assets/Gold.png"/>
+            <div className="login-card">
+                <spam className="login-card-titulo">Login</spam>
+                <input className="login-input" type="text" placeholder="E-mail"/>
+                <input className="login-input" type="password" placeholder="Senha"/>
 
                 <Link to="/perfilContratante">
-                    <button >Entrar</button><br></br>
+                    <button className="login-botao">Entrar</button><br></br>
                 </Link>
-                <spam>Não possue conta?</spam>
-                <Link to="/Cadastro">
-                    <spam >Cadastre-se</spam><br></br>
+                <spam className="login-texto">Não possue conta?</spam>
+                <Link to="/Cadastro" className="login-link">
+                    <spam className="login-link">Cadastre-se</spam><br></br>
                 </Link>
             </div>
-            <img src="src/assets/feedFoto.png"/>
+            <img className="login-cachorro" src="src/assets/GoldRoupa.png"/>
         </div>
     </>
   )
