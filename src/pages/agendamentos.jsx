@@ -1,5 +1,4 @@
-
-import React from "react";
+import React, { useEffect, useState } from "react"; 
 import { useNavigate, useParams } from "react-router-dom";
 import "./css/agendamentos.css";
 
@@ -161,10 +160,66 @@ function obterData(chave) {
 export default function Agendamentos() {
   const navigate = useNavigate();
   const { data } = useParams();
-
+  
   const dataSelecionada = obterData(data);
+
+  const [agendamentosReais, setAgendamentosReais] = useState([]);
+  const [carregando, setCarregando] = useState(true);
+  const [erro, setErro] = useState("");
+
+  useEffect(() => {
+    const controlador = new AbortController();
+
+    async function carregarAgendamentos() {
+      try {
+        const resposta = await fetch(
+          "http://localhost:8080/agendamentos/prestador/2",
+          { signal: controlador.signal }
+        );
+
+        if (!resposta.ok) {
+          throw new Error("Erro ao buscar agendamentos");
+        }
+
+        const dados = await resposta.json();
+
+        if (!controlador.signal.aborted) {
+          setAgendamentosReais(dados);
+          setErro("");
+        }
+      } catch (erro) {
+        if (erro.name !== "AbortError") {
+          setErro("Não foi possível carregar os agendamentos.");
+          console.error(erro);
+        }
+      } finally {
+        if (!controlador.signal.aborted) {
+          setCarregando(false);
+        }
+      }
+    }
+
+    carregarAgendamentos();
+
+    return () => controlador.abort();
+  }, []);
+
+
   const servicos = dataSelecionada
-    ? agendamentos[data] || []
+    ? agendamentosReais
+        .filter((agendamento) =>
+          agendamento.dataHora?.slice(0, 10) === data
+        )
+        .map((agendamento) => ({
+          id: agendamento.id,
+          nome: agendamento.descricao || "Serviço agendado",
+          horario: agendamento.dataHora.slice(11, 16),
+          localizacao: agendamento.localServico || "Não informado",
+          detalhes: `Duração: ${agendamento.duracao || "Não informada"} | Valor: R$ ${Number(agendamento.valor || 0).toFixed(2)}`,
+          status: agendamento.status === "AGENDADO"
+            ? "Confirmado"
+            : agendamento.status,
+        }))
     : [];
 
   const diaSemana = dataSelecionada

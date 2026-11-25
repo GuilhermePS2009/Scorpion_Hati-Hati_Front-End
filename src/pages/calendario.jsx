@@ -1,6 +1,6 @@
 
 import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./css/calendario.css";
 
 // Ícones utilizados na tela
@@ -122,10 +122,52 @@ function chaveData(data) {
 export default function Calendario() {
 
   const navigate = useNavigate();
+
+
+const [agendamentos, setAgendamentos] = useState([]);
+const [erroAgendamentos, setErroAgendamentos] = useState("");
+
+useEffect(() => {
+  const controlador = new AbortController();
+
+  async function carregarAgendamentos() {
+    try {
+      const resposta = await fetch( 
+        "http://localhost:8080/agendamentos/prestador/2",
+        { signal: controlador.signal }
+      );
+
+      if (!resposta.ok) {
+        throw new Error("Erro ao buscar agendamentos");
+      }
+
+      const dados = await resposta.json();
+
+      if (!Array.isArray(dados)) {
+        throw new Error("Formato de resposta inesperado");
+      }
+
+      setAgendamentos(dados);
+      setErroAgendamentos("");
+      console.log("Agendamentos recebidos:", dados);
+    } catch (erro) {
+      if (erro.name !== "AbortError") {
+        console.error("Erro ao carregar agendamentos:", erro);
+        setErroAgendamentos("Não foi possível conectar ao Back-end.");
+      }
+    }
+  }
+
+  carregarAgendamentos();
+
+  return () => controlador.abort();
+}, []);
+
   // Começamos em abril de 2026, como na referência
-  const [dataAtual, setDataAtual] = useState(
-    new Date(2026, 3, 1)
-  );
+  const [dataAtual, setDataAtual] = useState(() => {
+    const hoje = new Date();
+    return new Date(hoje.getFullYear(), hoje.getMonth(), 1);
+  });
   const [diaSelecionado, setDiaSelecionado] = useState(null);
 
   const mes = dataAtual.getMonth();
@@ -160,9 +202,29 @@ export default function Calendario() {
     return dias;
   }
 
+
   const dias = gerarDias();
 
+
+  
+  
   function obterEvento(dia) {
+    const eventosDoDia = agendamentos.filter(
+      (agendamento) =>
+        agendamento.dataHora?.slice(0, 10) === dia.chave
+    );
+
+    if (eventosDoDia.length > 0) {
+      return {
+        tipo: "agendamento",
+        itens: eventosDoDia.map((agendamento) => ({
+          hora: agendamento.dataHora.slice(11, 16),
+          texto: agendamento.descricao || "Serviço agendado",
+          cor: "verde",
+        })),
+      };
+    }
+
     if (eventos[dia.chave]) {
       return eventos[dia.chave];
     }
@@ -176,6 +238,7 @@ export default function Calendario() {
 
     return null;
   }
+
 
   return (
     <div className="pagina-calendario">
