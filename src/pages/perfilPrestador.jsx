@@ -5,6 +5,7 @@ import './css/botao.css'
 
 function PerfilPrestador() {
   const [foto, setFoto] = useState("src/assets/Foto.webp");
+  const [menuAberto, setMenuAberto] = useState(false);
 
   function escolher(e) {
     const arquivo = e.target.files[0];
@@ -39,7 +40,24 @@ function PerfilPrestador() {
             <p>ID: 001</p>
           </div>
 
-          <div className="menu" role="img" aria-label="Menu"></div>
+          <div className="todo-menu">
+          <div
+              className="menu"
+              onClick={() => setMenuAberto(!menuAberto)}
+              role="button"
+              aria-label="Abrir menu"
+          >
+          </div>
+
+          {menuAberto && (
+              <div className="aberto">
+                  <div>Cursos</div>
+                  <div>Excluir perfil</div>
+                  <div>Editar perfil</div>
+                  <div>Deslogar</div>
+              </div>
+              )}
+          </div>
         </header>
 
         <div className="acoes">

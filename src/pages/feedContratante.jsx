@@ -13,6 +13,7 @@ const siglaParaEstado = {
 
 function feedContratante() {
   const [prestadores, setPrestadores] = useState([]);
+  
 
   useEffect(() => {
     buscarPrestadores()
@@ -46,27 +47,33 @@ function feedContratante() {
             <input type="search" placeholder="Pesquisar..." aria-label="Pesquisar"/>
             <div className="filtro-boxC">
               <span className="icone-filtroC" aria-hidden="true"></span>
-              {/*<select defaultValue="todos">
-                <option value="">
+              <span>Filtro</span>
+              <div>
                 <select>
-                  <option value="Todos" disabled>Todos</option>
-                  <option value="Cuidador">Cuidador</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
+                  <option selected disabled>1</option>
+                  <option>1.1</option>
+                  <option>1.2</option>
+                  <option>1.3</option>
+                  <option>1.4</option>
+                  <option>1.5</option>
                 </select>
-                </option>
-
-                <option>
                 <select>
-                  <option value="Todos" disabled>Todos</option>
-                  <option value="Cuidador">Cuidador</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
+                  <option selected disabled>2</option>
+                  <option>2.1</option>
+                  <option>2.2</option>
+                  <option>2.3</option>
+                  <option>2.4</option>
+                  <option>2.5</option>
                 </select>
-                </option>
-              </select>*/}
+                <select>
+                  <option selected disabled>3</option>
+                  <option>3.1</option>
+                  <option>3.2</option>
+                  <option>3.3</option>
+                  <option>3.4</option>
+                  <option>3.5</option>
+                </select>
+              </div>
             </div>
 
             <div /*className="lista-prestadores"*/>

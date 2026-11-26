@@ -169,3 +169,9 @@
 
 .vaga h3 { margin: 0; }
 .vaga p { margin: 0; }
+
+.todo-menu{
+  width: 70px;
+  height: 100px;
+  margin-left: auto;
+}

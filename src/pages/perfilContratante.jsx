@@ -20,6 +20,7 @@ const formVazio = {
 const ID_CONTRATANTE = 1;
 
 function PerfilContratante() {
+  const [menuAberto, setMenuAberto] = useState(false);
   const [foto, setFoto] = useState("src/assets/Foto.webp");
   const [aberto, setAberto] = useState(false);
   const [form, setForm] = useState(formVazio);
@@ -135,7 +136,21 @@ function PerfilContratante() {
             <p>ID: 001</p>
           </div>
 
-          <div className="menu" role="img" aria-label="Menu"></div>
+          <div className="todo-menu">
+          <div
+              className="menu"
+              onClick={() => setMenuAberto(!menuAberto)}
+          >
+          </div>
+                {menuAberto && (
+          <div className="aberto">
+              <div>Cursos</div>
+              <div>Excluir perfil</div>
+              <div>Editar perfil</div>
+              <div>Deslogar</div>
+          </div>
+              )}
+          </div>
         </header>
 
         <div className="acoes">
