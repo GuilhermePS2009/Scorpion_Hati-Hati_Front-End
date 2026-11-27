@@ -3,6 +3,14 @@ import { Link } from "react-router-dom";
 import './css/perfilPrestador.css'
 import './css/botao.css'
 
+const avaliacoes = [
+  { rosto: "😄", pct: 20 },
+  { rosto: "🙂", pct: 20 },
+  { rosto: "😐", pct: 20 },
+  { rosto: "🙁", pct: 20 },
+  { rosto: "😠", pct: 20 },
+];
+
 function PerfilPrestador() {
   const [foto, setFoto] = useState("src/assets/Foto.webp");
   const [menuAberto, setMenuAberto] = useState(false);
@@ -30,6 +38,10 @@ function PerfilPrestador() {
 
       <main className="conteudo">
         <header className="cabecalho">
+          <link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+/>
           <label className="foto-perfil">
             <img src={foto} alt="Foto de perfil" />
             <input type="file" accept="image/*" hidden onChange={escolher} />
@@ -41,22 +53,23 @@ function PerfilPrestador() {
           </div>
 
           <div className="todo-menu">
-          <div
+            <button
+              type="button"
               className="menu"
               onClick={() => setMenuAberto(!menuAberto)}
-              role="button"
               aria-label="Abrir menu"
-          >
-          </div>
+              aria-expanded={menuAberto}
+            />
 
-          {menuAberto && (
-              <div className="aberto">
-                  <div>Cursos</div>
-                  <div>Excluir perfil</div>
-                  <div>Editar perfil</div>
-                  <div>Deslogar</div>
+            {menuAberto && (
+              <div className="aberto" role="menu">
+                <button type="button" role="menuitem">Cursos</button>
+                <button type="button" role="menuitem">Editar perfil</button>
+                <button type="button" role="menuitem">Deslogar</button>
+                <hr />
+                <button type="button" role="menuitem" className="perigo">Excluir perfil</button>
               </div>
-              )}
+            )}
           </div>
         </header>
 
@@ -67,6 +80,13 @@ function PerfilPrestador() {
           </Link>
 
           <div className="calendario" role="img" aria-label="Calendário"></div>
+          <div className="avaliacoes">
+  {avaliacoes.map((a) => (
+    <div className="avaliacao" key={a.rosto}>
+      <div className="rosto">{a.rosto}</div>
+    </div>
+  ))}
+</div>
 
           {/*<div className="avaliacoes">
             {avaliacoes.map((a) => (

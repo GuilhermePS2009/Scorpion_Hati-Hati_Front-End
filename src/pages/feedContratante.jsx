@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import './css/botao.css'
 import './css/feedContratante.css'
 import api from "../services/api";
@@ -11,89 +10,115 @@ const siglaParaEstado = {
   'GO': "Goiás"
 }
 
-function feedContratante() {
+const tiposFiltro = {
+  1: ["1.1", "1.2", "1.3", "1.4", "1.5"],
+  2: ["2.1", "2.2", "2.3", "2.4", "2.5"],
+  3: ["3.1", "3.2", "3.3", "3.4", "3.5"],
+};
+
+function FeedContratante() {
   const [prestadores, setPrestadores] = useState([]);
-  
+
+  // estados do filtro (precisam ficar DENTRO do componente)
+  const [filtroAberto, setFiltroAberto] = useState(false);
+  const [tipoAberto, setTipoAberto] = useState(null);
+  const [filtros, setFiltros] = useState({ 1: null, 2: null, 3: null });
+
+  const selecionados = Object.values(filtros).filter(Boolean);
+
+  function escolherOpcao(tipo, opcao) {
+    // clicar de novo na mesma opção desmarca
+    setFiltros({ ...filtros, [tipo]: filtros[tipo] === opcao ? null : opcao });
+  }
 
   useEffect(() => {
     buscarPrestadores()
   }, [])
 
   function buscarPrestadores(){
-    let prest = api
+    return api
       .get("/prestadores/getAll")
       .then((response) => setPrestadores(response.data))
       .catch((err) => console.error("Ops! Ocorreu um erro: " + err))
-    console.log(prest)
-    return prest
   }
 
   return (
     <>
       <div className="botoes">
-            <Link to="/feedContratante">
-                <div className="botao botaoSel botaoF"><img src="src/assets/feedFoto.png" alt="Img da Feed"/>Feed</div>
-            </Link>
+        <Link to="/feedContratante">
+          <div className="botao botaoSel"><img src="src/assets/feedFoto.png" alt="Img da Feed"/>Feed</div>
+        </Link>
 
-            <Link to="/perfilContratante">
-                <div className="botao"><img src="src/assets/chatFoto.png" alt="Img do Chat"/>Chat</div>
-            </Link>
-            
-            <Link to="/perfilContratante">
-                <div className="botao"><img src="src/assets/perfilFoto.png" alt="Img do Chat"/>Perfil</div>
-            </Link>
-        </div>
-        <main className="conteudoC">
-            <input type="search" placeholder="Pesquisar..." aria-label="Pesquisar"/>
-            <div className="filtro-boxC">
-              <span className="icone-filtroC" aria-hidden="true"></span>
-              <span>Filtro</span>
-              <div>
-                <select>
-                  <option selected disabled>1</option>
-                  <option>1.1</option>
-                  <option>1.2</option>
-                  <option>1.3</option>
-                  <option>1.4</option>
-                  <option>1.5</option>
-                </select>
-                <select>
-                  <option selected disabled>2</option>
-                  <option>2.1</option>
-                  <option>2.2</option>
-                  <option>2.3</option>
-                  <option>2.4</option>
-                  <option>2.5</option>
-                </select>
-                <select>
-                  <option selected disabled>3</option>
-                  <option>3.1</option>
-                  <option>3.2</option>
-                  <option>3.3</option>
-                  <option>3.4</option>
-                  <option>3.5</option>
-                </select>
-              </div>
-            </div>
+        <Link to="/perfilContratante">
+          <div className="botao"><img src="src/assets/chatFoto.png" alt="Img do Chat"/>Chat</div>
+        </Link>
 
-            <div /*className="lista-prestadores"*/>
-              {prestadores.map((p) => (
-                <div /*classname="prestador"*/ key={p.id}>
-                  {p.nome && <p>Nome: {p.nome}</p>}
-                  {p.estado && <p>Estado: {siglaParaEstado[p.estado]}</p>}
-                  {p.cidade && <p>Cidade: {p.cidade}</p>}
-                  {p.avaliacoes && <p>Nota: {p.avaliacoes} </p> || <p>Nota: Não avaliado</p>/* Se o contratante tiver uma nota registrada, ela é exibida, 
-                                                                                               Caso contrário, é exibido que ele não é avaliado
-                                                                                               Obs.: Se quiser pode mudar  */} 
-                  {p.cep && <p>CEP: {p.cep}</p>}
-                  <br/>
+        <Link to="/perfilContratante">
+          <div className="botao"><img src="src/assets/perfilFoto.png" alt="Img do Perfil"/>Perfil</div>
+        </Link>
+      </div>
+
+      <main className="conteudoC">
+        <input type="search" placeholder="Pesquisar..." aria-label="Pesquisar"/>
+
+        <div className="filtro-boxC">
+          <button
+            type="button"
+            className="filtro-botao"
+            onClick={() => setFiltroAberto(!filtroAberto)}
+            aria-expanded={filtroAberto}
+          >
+            <span className="icone-filtroC" aria-hidden="true"></span>
+            <span>{selecionados.length > 0 ? selecionados.join(", ") : "Todos"}</span>
+          </button>
+
+          {filtroAberto && (
+            <div className="filtro-painel">
+              {Object.keys(tiposFiltro).map((tipo) => (
+                <div key={tipo} className="filtro-tipo">
+                  <button
+                    type="button"
+                    className={"filtro-tipo-botao" + (filtros[tipo] ? " ativo" : "")}
+                    onClick={() => setTipoAberto(tipoAberto === tipo ? null : tipo)}
+                  >
+                    {tipo}
+                  </button>
+
+                  {tipoAberto === tipo && (
+                    <div className="filtro-opcoes">
+                      {tiposFiltro[tipo].map((op) => (
+                        <button
+                          type="button"
+                          key={op}
+                          className={"filtro-opcao" + (filtros[tipo] === op ? " sel" : "")}
+                          onClick={() => escolherOpcao(tipo, op)}
+                        >
+                          {op}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
-          
-              ))}    
+              ))}
             </div>
-        </main>
+          )}
+        </div>
+
+        <div /*className="lista-prestadores"*/>
+          {prestadores.map((p) => (
+            <div /*className="prestador"*/ key={p.id}>
+              {p.nome && <p>Nome: {p.nome}</p>}
+              {p.estado && <p>Estado: {siglaParaEstado[p.estado]}</p>}
+              {p.cidade && <p>Cidade: {p.cidade}</p>}
+              {p.avaliacoes ? <p>Nota: {p.avaliacoes}</p> : <p>Nota: Não avaliado</p>}
+              {p.cep && <p>CEP: {p.cep}</p>}
+              <br/>
+            </div>
+          ))}
+        </div>
+      </main>
     </>
   )
 }
 
-export default feedContratante
+export default FeedContratante

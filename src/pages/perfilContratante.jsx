@@ -4,6 +4,14 @@ import './css/perfilContratante.css'
 import './css/botao.css'
 import api from "../services/api";
 
+const avaliacoes = [
+  { rosto: "😄" },
+  { rosto: "🙂" },
+  { rosto: "😐" },
+  { rosto: "🙁" },
+  { rosto: "😠" },
+];
+
 const formVazio = {
   tipoServico: "",
   dataHora: "",
@@ -137,19 +145,23 @@ function PerfilContratante() {
           </div>
 
           <div className="todo-menu">
-          <div
+            <button
+              type="button"
               className="menu"
               onClick={() => setMenuAberto(!menuAberto)}
-          >
-          </div>
-                {menuAberto && (
-          <div className="aberto">
-              <div>Cursos</div>
-              <div>Excluir perfil</div>
-              <div>Editar perfil</div>
-              <div>Deslogar</div>
-          </div>
-              )}
+              aria-label="Abrir menu"
+              aria-expanded={menuAberto}
+            />
+
+            {menuAberto && (
+              <div className="aberto" role="menu">
+                <button type="button" role="menuitem">Cursos</button>
+                <button type="button" role="menuitem">Editar perfil</button>
+                <button type="button" role="menuitem">Deslogar</button>
+                <hr />
+                <button type="button" role="menuitem" className="perigo">Excluir perfil</button>
+              </div>
+            )}
           </div>
         </header>
 
@@ -159,6 +171,13 @@ function PerfilContratante() {
             Chat
           </Link>
           <div className="calendario" role="img" aria-label="Calendário"></div>
+          <div className="avaliacoes">
+  {avaliacoes.map((a) => (
+    <div className="avaliacao" key={a.rosto}>
+      <div className="rosto">{a.rosto}</div>
+    </div>
+  ))}
+</div>
         </div>
 
         <section className="anexos">

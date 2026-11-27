@@ -50,7 +50,16 @@
 }
 
 .btn-chat img { height: 40px; }
-.calendario   { height: 60px; }
+
+/* ÍCONE DO CALENDÁRIO (única definição) */
+.calendario {
+  display: block;
+  width: 60px;
+  height: 60px;
+  background-color: #6af6cf;
+  -webkit-mask: url("/src/assets/calendarioFoto.png") center / contain no-repeat;
+  mask: url("/src/assets/calendarioFoto.png") center / contain no-repeat;
+}
 
 .linha {
   height: 5px;
@@ -74,14 +83,6 @@
 
 .anexos label span {
   font-size: 1.5rem;
-}
-
-.calendario {
-  width: 60px;
-  height: 60px;
-  background-color: #6af6cf;                 /* a cor que você quiser */
-  -webkit-mask: url("/src/assets/calendarioFoto.png") center / contain no-repeat;
-  mask: url("/src/assets/calendarioFoto.png") center / contain no-repeat;
 }
 
 .btn-criar {
@@ -170,7 +171,7 @@
 .vaga h3 { margin: 0; }
 .vaga p { margin: 0; }
 
-.todo-menu{
+.todo-menu {
   width: 70px;
   height: 100px;
   margin-left: auto;
