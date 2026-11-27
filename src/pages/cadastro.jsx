@@ -49,7 +49,7 @@ function cadastro() {
         await api.post("http://localhost:8080/contratantes/cadastrar", novoUsuario)
       else // prestador
         await api.post("http://localhost:8080/prestadores/cadastrar", novoUsuario)
-    } catch (error) {
+    } catch (err) {
       console.error("Erro ao criar vaga:", err);
       alert("Não foi possível criar a vaga.");
     }
@@ -61,11 +61,12 @@ function cadastro() {
         <p className="um">Cadastro</p>
 
         <form onSubmit={enviar}>
-        <label>Nome de usuário: </label> <input type="text" name="nome" onChange={mudar}/><br/>
-        <label>Senha: </label> <input type="password" name="senha" onChange={mudar}/><br/>
-        <label>Cidade: </label><input type="text" name="cidade" onChange={mudar}/> <br/>
+        <label>Nome de usuário: </label> <input type="text" name="nome" onChange={mudar} required /><br/>
+        <label>Email: </label><input type="text" name="email" onChange={mudar} required/><br/>
+        <label>Senha: </label> <input type="password" name="senha" onChange={mudar} required /><br/>
+        <label>Cidade: </label><input type="text" name="cidade" onChange={mudar} required/> <br/>
         <label>Estado: </label>
-        <select name="estado" onChange={mudar}>
+        <select name="estado" onChange={mudar} required>
           <option selected disabled>Selecione</option>
             <option value="AC">Acre</option>
             <option value="AL">Alagoas</option>
@@ -95,7 +96,7 @@ function cadastro() {
             <option value="SE">Sergipe</option>
             <option value="TO">Tocantins</option>
         </select><br/>
-        <label >CEP: </label><input type="text" name="cep" onChange={mudar}/> <br/>
+        <label >CEP: </label><input type="text" name="cep" onChange={mudar} required /> <br/>
         <input type="radio" name="tipo" value="Contratante" onChange={mudarCheckbox}/>
         <label>Contratante</label>
         <br/>
