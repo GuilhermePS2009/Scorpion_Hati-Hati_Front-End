@@ -1,9 +1,10 @@
+
 /* só afeta o .conteudo que tem a barra de pesquisa (o feed) */
 .conteudoC:has(> input[type="search"]) {
   margin-left: var(--largura-barra);
   padding: 1.2vw 1.9vw;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);   /* mesmas 4 colunas dos quadrados */
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.4vw;
   align-items: center;
 }
@@ -13,7 +14,7 @@
   grid-column: span 3;
   box-sizing: border-box;
   height: 5.6vw;
-  padding: 0 2vw 0 6vw;                    /* espaço à esquerda para a lupa */
+  padding: 0 2vw 0 6vw;
   border: none;
   outline: none;
   border-radius: 999px;
@@ -36,7 +37,7 @@
   grid-column: span 1;
   box-sizing: border-box;
   height: 5.6vw;
-  padding: 0 1vw 0 5vw;                    /* espaço à esquerda para o funil */
+  padding: 0 1vw 0 5vw;
   appearance: none;
   border: 2px solid #6af6cf;
   border-radius: 999px;
@@ -79,7 +80,7 @@
   text-overflow: ellipsis;
 }
 
-/* funil: agora é um elemento normal dentro do botão */
+/* funil dentro do botão */
 .icone-filtroC {
   flex-shrink: 0;
   width: 3vw;
@@ -120,6 +121,7 @@
   cursor: pointer;
 }
 
+/* HEAD: opções dos filtros */
 .filtro-tipo-botao.ativo {
   background: #6af6cf;
   color: #fff;
@@ -149,3 +151,34 @@
   color: #fff;
 }
 
+/* calendario: formulário de publicação de vagas */
+.campos-nova-vaga {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.campos-nova-vaga label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: #20594e;
+  font-weight: 600;
+}
+
+.campos-nova-vaga input,
+.campos-nova-vaga textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #b9d9cf;
+  border-radius: 8px;
+  background: white;
+  color: #222;
+  font-size: 15px;
+}
+
+.campos-nova-vaga textarea {
+  min-height: 80px;
+}

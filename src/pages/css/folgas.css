@@ -1,0 +1,141 @@
+
+.pagina-folgas {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 35px;
+  background: #f5faf8;
+  color: #204c43;
+  font-family: Arial, sans-serif;
+}
+
+.folgas-topo {
+  max-width: 850px;
+  margin: 0 auto 25px;
+}
+
+.folgas-topo h1 {
+  font-size: 32px;
+  margin: 22px 0 8px;
+}
+
+.folgas-topo p {
+  color: #58766e;
+}
+
+.folgas-voltar {
+  border: none;
+  background: transparent;
+  color: #278f78;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 8px 0;
+}
+
+.folgas-card {
+  max-width: 850px;
+  margin: 20px auto;
+  padding: 25px;
+  box-sizing: border-box;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+
+.folgas-card h2 {
+  margin-top: 0;
+  font-size: 22px;
+}
+
+.folgas-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.folgas-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-weight: 600;
+}
+
+.folgas-form input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #c5ded5;
+  border-radius: 9px;
+  background: white;
+  color: #222;
+  font-size: 15px;
+}
+
+.folgas-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.folgas-acoes button {
+  cursor: pointer;
+  border-radius: 9px;
+  padding: 10px 17px;
+  font-weight: 600;
+}
+
+.folgas-salvar {
+  background: #45b99c;
+  color: white;
+  border: none;
+}
+
+.folgas-secundario {
+  background: #e8f7f2;
+  color: #226a59;
+  border: none;
+}
+
+.folgas-excluir {
+  background: #fff0f0;
+  color: #b33b3b;
+  border: none;
+}
+
+.folgas-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.folgas-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 15px;
+  border-radius: 12px;
+  background: #f0faf6;
+}
+
+.folgas-item p {
+  margin: 5px 0 0;
+  color: #58766e;
+}
+
+.pagina-folgas > [role="status"],
+.pagina-folgas > [role="alert"] {
+  max-width: 850px;
+  margin: 12px auto;
+}
+
+@media (max-width: 600px) {
+  .pagina-folgas {
+    padding: 18px;
+  }
+
+  .folgas-card {
+    padding: 18px;
+  }
+}
