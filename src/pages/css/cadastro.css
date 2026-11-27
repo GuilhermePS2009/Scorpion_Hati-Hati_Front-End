@@ -60,7 +60,8 @@ body {
 
 /* Campos de texto e select */
 .cadastroFolha input[type="text"],
-.cadastroFolha select {
+.cadastroFolha select, 
+.cadastroFolha input[type="password"] {
   box-sizing: border-box;
   width: calc(100% - 136px);
   height: 36px;
