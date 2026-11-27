@@ -155,7 +155,9 @@ function PerfilContratante() {
 
             {menuAberto && (
               <div className="aberto" role="menu">
+                <Link to="/cursos">
                 <button type="button" role="menuitem">Cursos</button>
+                </Link>
                 <button type="button" role="menuitem">Editar perfil</button>
                 <button type="button" role="menuitem">Deslogar</button>
                 <hr />

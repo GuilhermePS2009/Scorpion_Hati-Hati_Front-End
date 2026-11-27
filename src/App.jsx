@@ -6,6 +6,7 @@ import PerfilPrestador from './pages/perfilPrestador';
 import FeedContratante from './pages/feedContratante';
 import FeedPrestador from './pages/feedPrestador';
 import Login from './pages/login'
+import Cursos from './pages/cursos'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/feedContratante" element={<FeedContratante />} />
         <Route path="/feedPrestador" element={<FeedPrestador />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/cursos" element={<Cursos />} />
       </Routes>
     </BrowserRouter>
   )

@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import api from "../services/api";
 
 const tiposFiltro = {
-  1: ["1.1", "1.2", "1.3", "1.4", "1.5"],
-  2: ["2.1", "2.2", "2.3", "2.4", "2.5"],
+  "Área de Serviço": ["Cuidador de idosos", "Cuidador infantil", "Cuidador de pessoas com deficiência (PcD)", "Cuidador de pessoas com doenças crônicas", "Cuidador pós-operatório", "Enfermagem", "Psicologia", "Psiquiatria", "Neuropsicologia", "Psicopedagogia", "Fisioterapia", "Acupuntura", "Intérprete de Libras", "Babá"],
+  "Local": ["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"],
   3: ["3.1", "3.2", "3.3", "3.4", "3.5"],
 };
 
