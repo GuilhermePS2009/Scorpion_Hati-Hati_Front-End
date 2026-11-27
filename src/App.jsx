@@ -10,6 +10,7 @@ import FeedContratante from './pages/feedContratante';
 import FeedPrestador from './pages/feedPrestador';
 import Login from './pages/login';
 import Calendario from './pages/calendario';
+import Folgas from "./pages/folgas";
 
 // NOVA TELA DE AGENDAMENTOS
 import Agendamentos from './pages/agendamentos';
@@ -28,6 +29,7 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         <Route path="/calendario" element={<Calendario />} />
+        <Route path="/folgas" element={<Folgas />} />
 
         {/* ROTA DOS AGENDAMENTOS */}
         <Route

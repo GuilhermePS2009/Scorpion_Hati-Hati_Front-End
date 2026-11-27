@@ -93,3 +93,35 @@
   mask: url("/src/assets/funilFoto.png") center / contain no-repeat;
   pointer-events: none;
 }
+
+
+.campos-nova-vaga {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.campos-nova-vaga label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: #20594e;
+  font-weight: 600;
+}
+
+.campos-nova-vaga input,
+.campos-nova-vaga textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #b9d9cf;
+  border-radius: 8px;
+  background: white;
+  color: #222;
+  font-size: 15px;
+}
+
+.campos-nova-vaga textarea {
+  min-height: 80px;
+}

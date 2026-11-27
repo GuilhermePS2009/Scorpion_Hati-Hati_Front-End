@@ -493,3 +493,96 @@
     font-size: 10px;
   }
 }
+
+
+/* =====================================
+   BOTÃO FOLGAS E MENU DE OPÇÕES
+   ===================================== */
+
+.cal-acoes-cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.cal-botao-folgas {
+  background: linear-gradient(135deg, #00cbb6, #008f82);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 22px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.cal-botao-folgas:hover {
+  background: #007e73;
+  transform: translateY(-1px);
+}
+
+.cal-menu-container {
+  position: relative;
+}
+
+.cal-menu-container .cal-menu-visual {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #00aa98;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.cal-menu-container .cal-menu-visual:hover {
+  background: #e2faf9;
+  border-radius: 10px;
+}
+
+.cal-menu-opcoes {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 190px;
+  padding: 8px;
+  background: #ffffff;
+  border: 1px solid #c5f0ef;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+}
+
+.cal-menu-opcoes button {
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  text-align: left;
+  background: transparent;
+  color: #005f57;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cal-menu-opcoes button:hover {
+  background: #e2faf9;
+}
+
+@media (max-width: 700px) {
+  .cal-acoes-cabecalho {
+    gap: 6px;
+  }
+
+  .cal-botao-folgas {
+    padding: 9px 12px;
+    font-size: 12px;
+  }
+
+  .cal-menu-opcoes {
+    min-width: 160px;
+  }
+}

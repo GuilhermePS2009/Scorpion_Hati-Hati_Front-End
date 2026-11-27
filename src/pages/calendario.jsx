@@ -1,9 +1,11 @@
 
 import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import api from "../services/api";
 import "./css/calendario.css";
 
-// Ícones utilizados na tela
+const ID_PRESTADOR = 2; // Prestador de teste
+
 function Icone({ nome, tamanho = 24 }) {
   const propriedades = {
     width: tamanho,
@@ -18,9 +20,7 @@ function Icone({ nome, tamanho = 24 }) {
 
   const desenhos = {
     casa: (
-      <>
-        <path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z" />
-      </>
+      <path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z" />
     ),
     chat: (
       <>
@@ -40,12 +40,6 @@ function Icone({ nome, tamanho = 24 }) {
         <path d="M7 3v4M17 3v4M3 10h18M7 14h10M7 17h6" />
       </>
     ),
-    relogio: (
-      <>
-        <circle cx="12" cy="12" r="9" />
-        <path d="M12 7v5l3 2" />
-      </>
-    ),
     esquerda: <path d="m15 18-6-6 6-6" />,
     direita: <path d="m9 18 6-6-6-6" />,
     menu: (
@@ -60,38 +54,10 @@ function Icone({ nome, tamanho = 24 }) {
   return <svg {...propriedades}>{desenhos[nome]}</svg>;
 }
 
-// Eventos de exemplo do calendário
-const eventos = {
-  "2026-04-03": {
-    tipo: "feriado",
-    titulo: "Paixão de Cristo",
-  },
-  "2026-04-06": {
-    tipo: "agendamento",
-    itens: [
-      { hora: "7:00", texto: "serviço agendado", cor: "verde" },
-      { hora: "20:30", texto: "serviço agendado", cor: "verde" },
-    ],
-  },
-  "2026-04-15": {
-    tipo: "agendamento",
-    itens: [
-      { hora: "7:00", texto: "serviço agendado", cor: "verde" },
-      { hora: "14:00", texto: "compromisso", cor: "vermelho" },
-    ],
-  },
-  "2026-04-18": {
-    tipo: "ocupado",
-    titulo: "Todos horários ocupados",
-  },
-  "2026-04-21": {
-    tipo: "feriado",
-    titulo: "Tiradentes",
-  },
-  "2026-05-01": {
-    tipo: "feriado",
-    titulo: "Dia do Trabalho",
-  },
+const feriados = {
+  "2026-04-03": "Paixão de Cristo",
+  "2026-04-21": "Tiradentes",
+  "2026-05-01": "Dia do Trabalho",
 };
 
 const diasSemana = [
@@ -105,12 +71,20 @@ const diasSemana = [
 ];
 
 const meses = [
-  "Janeiro", "Fevereiro", "Março", "Abril",
-  "Maio", "Junho", "Julho", "Agosto",
-  "Setembro", "Outubro", "Novembro", "Dezembro",
+  "Janeiro",
+  "Fevereiro",
+  "Março",
+  "Abril",
+  "Maio",
+  "Junho",
+  "Julho",
+  "Agosto",
+  "Setembro",
+  "Outubro",
+  "Novembro",
+  "Dezembro",
 ];
 
-// Formata a data sem problemas de fuso horário
 function chaveData(data) {
   const ano = data.getFullYear();
   const mes = String(data.getMonth() + 1).padStart(2, "0");
@@ -120,69 +94,81 @@ function chaveData(data) {
 }
 
 export default function Calendario() {
-
   const navigate = useNavigate();
 
+  const [agendamentos, setAgendamentos] = useState([]);
+  const [folgas, setFolgas] = useState([]);
+  const [erroAgendamentos, setErroAgendamentos] = useState("");
+  const [erroFolgas, setErroFolgas] = useState("");
+  const [menuAberto, setMenuAberto] = useState(false);
 
-const [agendamentos, setAgendamentos] = useState([]);
-const [erroAgendamentos, setErroAgendamentos] = useState("");
-
-useEffect(() => {
-  const controlador = new AbortController();
-
-  async function carregarAgendamentos() {
-    try {
-      const resposta = await fetch( 
-        "http://localhost:8080/agendamentos/prestador/2",
-        { signal: controlador.signal }
-      );
-
-      if (!resposta.ok) {
-        throw new Error("Erro ao buscar agendamentos");
-      }
-
-      const dados = await resposta.json();
-
-      if (!Array.isArray(dados)) {
-        throw new Error("Formato de resposta inesperado");
-      }
-
-      setAgendamentos(dados);
-      setErroAgendamentos("");
-      console.log("Agendamentos recebidos:", dados);
-    } catch (erro) {
-      if (erro.name !== "AbortError") {
-        console.error("Erro ao carregar agendamentos:", erro);
-        setErroAgendamentos("Não foi possível conectar ao Back-end.");
-      }
-    }
-  }
-
-  carregarAgendamentos();
-
-  return () => controlador.abort();
-}, []);
-
-  // Começamos em abril de 2026, como na referência
   const [dataAtual, setDataAtual] = useState(() => {
     const hoje = new Date();
     return new Date(hoje.getFullYear(), hoje.getMonth(), 1);
   });
-  const [diaSelecionado, setDiaSelecionado] = useState(null);
+
+  useEffect(() => {
+    let ativo = true;
+
+    async function carregarDados() {
+      try {
+        const resposta = await api.get(
+          `/agendamentos/prestador/${ID_PRESTADOR}`
+        );
+
+        if (ativo) {
+          setAgendamentos(resposta.data);
+          setErroAgendamentos("");
+        }
+      } catch (error) {
+        console.error("Erro ao carregar agendamentos:", error);
+
+        if (ativo) {
+          setErroAgendamentos(
+            "Não foi possível carregar os agendamentos."
+          );
+        }
+      }
+
+      try {
+        const resposta = await api.get(
+          `/folgas/prestador/${ID_PRESTADOR}`
+        );
+
+        if (ativo) {
+          setFolgas(resposta.data);
+          setErroFolgas("");
+        }
+      } catch (error) {
+        console.error("Erro ao carregar folgas:", error);
+
+        if (ativo) {
+          setErroFolgas(
+            "Não foi possível carregar as folgas."
+          );
+        }
+      }
+    }
+
+    carregarDados();
+
+    return () => {
+      ativo = false;
+    };
+  }, []);
 
   const mes = dataAtual.getMonth();
   const ano = dataAtual.getFullYear();
 
   function mudarMes(direcao) {
     setDataAtual(new Date(ano, mes + direcao, 1));
-    setDiaSelecionado(null);
+    setMenuAberto(false);
   }
 
   function gerarDias() {
     const primeiroDiaSemana = new Date(ano, mes, 1).getDay();
     const dias = [];
 
-    // 42 posições: seis semanas completas
     for (let i = 0; i < 42; i++) {
       const data = new Date(
         ano,
@@ -195,54 +181,55 @@ useEffect(() => {
         chave: chaveData(data),
         numero: data.getDate(),
         mesAtual: data.getMonth() === mes,
-        domingo: data.getDay() === 0,
       });
     }
 
     return dias;
   }
 
-
   const dias = gerarDias();
 
-
-  
-  
   function obterEvento(dia) {
-    const eventosDoDia = agendamentos.filter(
+    const agendamentosDoDia = agendamentos.filter(
       (agendamento) =>
         agendamento.dataHora?.slice(0, 10) === dia.chave
     );
 
-    if (eventosDoDia.length > 0) {
+    if (agendamentosDoDia.length > 0) {
       return {
         tipo: "agendamento",
-        itens: eventosDoDia.map((agendamento) => ({
+        itens: agendamentosDoDia.map((agendamento) => ({
           hora: agendamento.dataHora.slice(11, 16),
-          texto: agendamento.descricao || "Serviço agendado",
+          texto:
+            agendamento.descricao || "Serviço agendado",
           cor: "verde",
         })),
       };
     }
 
-    if (eventos[dia.chave]) {
-      return eventos[dia.chave];
-    }
+    const folga = folgas.find(
+      (item) => item.dataFolga === dia.chave
+    );
 
-    if (dia.domingo) {
+    if (folga) {
       return {
         tipo: "folga",
-        titulo: "Folga",
+        titulo: folga.motivo || "Folga",
+      };
+    }
+
+    if (feriados[dia.chave]) {
+      return {
+        tipo: "feriado",
+        titulo: feriados[dia.chave],
       };
     }
 
     return null;
   }
 
-
   return (
     <div className="pagina-calendario">
-      {/* MENU LATERAL */}
       <aside className="cal-sidebar">
         <div className="cal-sidebar-espaco" />
 
@@ -262,10 +249,7 @@ useEffect(() => {
         </div>
       </aside>
 
-      {/* CONTEÚDO PRINCIPAL */}
       <main className="cal-conteudo">
-
-        {/* CABEÇALHO */}
         <header className="cal-cabecalho">
           <div className="cal-titulo-grupo">
             <div className="cal-icone-titulo">
@@ -275,12 +259,49 @@ useEffect(() => {
             <h1>Calendário {ano}</h1>
           </div>
 
-          <div className="cal-menu-visual">
-            <Icone nome="menu" tamanho={28} />
+          <div className="cal-acoes-cabecalho">
+            <button
+              type="button"
+              className="cal-botao-folgas"
+              onClick={() => navigate("/folgas")}
+            >
+              Folgas
+            </button>
+
+            <div className="cal-menu-container">
+              <button
+                type="button"
+                className="cal-menu-visual"
+                aria-label="Abrir opções do calendário"
+                aria-expanded={menuAberto}
+                onClick={() => setMenuAberto(!menuAberto)}
+              >
+                <Icone nome="menu" tamanho={28} />
+              </button>
+
+              {menuAberto && (
+                <div className="cal-menu-opcoes">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMenuAberto(false);
+                      navigate("/folgas");
+                    }}
+                  >
+                    Gerenciar folgas
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </header>
 
-        {/* SELETOR DE MÊS */}
+        {erroAgendamentos && (
+          <p role="alert">{erroAgendamentos}</p>
+        )}
+
+        {erroFolgas && <p role="alert">{erroFolgas}</p>}
+
         <div className="cal-seletor">
           <div className="cal-linha" />
 
@@ -307,38 +328,33 @@ useEffect(() => {
           <div className="cal-linha" />
         </div>
 
-        {/* CALENDÁRIO */}
         <div className="cal-rolagem">
           <div className="cal-grade">
-
-            {/* DIAS DA SEMANA */}
             {diasSemana.map((dia) => (
               <div className="cal-dia-semana" key={dia}>
                 {dia}
               </div>
             ))}
 
-            {/* DIAS DO MÊS */}
             {dias.map((dia) => {
               const evento = obterEvento(dia);
               const tipo = evento?.tipo || "normal";
-              const selecionado = diaSelecionado === dia.chave;
 
               return (
                 <button
                   type="button"
                   key={dia.chave}
-                  onClick={() => navigate(`/calendario/${dia.chave}`)}
+                  onClick={() =>
+                    navigate(`/calendario/${dia.chave}`)
+                  }
                   className={[
                     "cal-dia",
                     `cal-dia-${tipo}`,
                     !dia.mesAtual ? "cal-outro-mes" : "",
-                    selecionado ? "cal-selecionado" : "",
                   ].join(" ")}
                   aria-label={`${dia.numero} de ${
                     meses[dia.data.getMonth()]
                   } de ${dia.data.getFullYear()}`}
-                  aria-pressed={selecionado}
                 >
                   <span className="cal-numero">
                     {dia.numero}
@@ -347,7 +363,12 @@ useEffect(() => {
                   {evento?.tipo === "folga" && (
                     <div className="cal-evento-simples">
                       <Icone nome="calendario" tamanho={19} />
-                      <span>Folga</span>
+                      <span>
+                        Folga
+                        {evento.titulo !== "Folga"
+                          ? `: ${evento.titulo}`
+                          : ""}
+                      </span>
                     </div>
                   )}
 
@@ -358,20 +379,17 @@ useEffect(() => {
                     </div>
                   )}
 
-                  {evento?.tipo === "ocupado" && (
-                    <div className="cal-evento-simples">
-                      <Icone nome="relogio" tamanho={21} />
-                      <span>{evento.titulo}</span>
-                    </div>
-                  )}
-
                   {evento?.tipo === "agendamento" && (
                     <div className="cal-lista-eventos">
                       {evento.itens.map((item, indice) => (
-                        <div className="cal-evento-linha" key={indice}>
+                        <div
+                          className="cal-evento-linha"
+                          key={indice}
+                        >
                           <span
                             className={`cal-bolinha ${item.cor}`}
                           />
+
                           <span>
                             <strong>{item.hora}</strong>{" "}
                             {item.texto}
@@ -383,7 +401,6 @@ useEffect(() => {
                 </button>
               );
             })}
-
           </div>
         </div>
       </main>
