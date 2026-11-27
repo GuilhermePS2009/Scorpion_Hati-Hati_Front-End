@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './css/cadastro.css'
 import { useState, useEffect } from "react";
 import api from "../services/api";
@@ -26,6 +26,8 @@ function cadastro() {
     console.log(e.target.value)
   }
 
+  const navegacao = useNavigate()
+
   /*function mudarSelect(e) {
     let estado = siglaParaEstado[e.target.value]
     // console.log(estado)
@@ -46,10 +48,16 @@ function cadastro() {
 
     try {
       if (form.tipo == true) // contratante
+      {
         await api.post("http://localhost:8080/contratantes/cadastrar", novoUsuario)
+        navegacao("/perfilContratante")
+      }
       else // prestador
+      {
         await api.post("http://localhost:8080/prestadores/cadastrar", novoUsuario)
-    } catch (error) {
+        navegacao("/perfilPrestador")
+      }
+    } catch (err) {
       console.error("Erro ao criar vaga:", err);
       alert("Não foi possível criar a vaga.");
     }
