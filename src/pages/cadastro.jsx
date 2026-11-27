@@ -7,10 +7,11 @@ import api from "../services/api";
 
 const formVazio = {
   nome: "",
+  senha: "",
   cidade: "",
   estado: "",
   cep: "",
-  tipoUsuario: true
+  tipoUsuario: false
 }
 
 function cadastro() {
@@ -21,7 +22,8 @@ function cadastro() {
   }
 
   function mudarCheckbox(e) {
-    setForm({ ...form, [e.target.name]: e.target.checked})
+    setForm({ ...form, [e.target.name]: e.target.value == "Contratante"})
+    console.log(e.target.value)
   }
 
   /*function mudarSelect(e) {
@@ -35,6 +37,7 @@ function cadastro() {
 
     const novoUsuario = {
       nome: form.nome,
+      senha: form.senha,
       cidade: form.cidade,
       estado: form.estado,
       cep: form.cep,
@@ -59,6 +62,7 @@ function cadastro() {
 
         <form onSubmit={enviar}>
         <label>Nome de usuário: </label> <input type="text" name="nome" onChange={mudar}/><br/>
+        <label>Senha: </label> <input type="password" name="senha" onChange={mudar}/><br/>
         <label>Cidade: </label><input type="text" name="cidade" onChange={mudar}/> <br/>
         <label>Estado: </label>
         <select name="estado" onChange={mudar}>
